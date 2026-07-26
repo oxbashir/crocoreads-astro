@@ -19,7 +19,7 @@ interface Props {
 const {
   title,
   description = SITE.description,
-  image = '/og-default.svg',
+  image = '/logo.png',
   type = 'website',
   publishedTime,
   modifiedTime,
@@ -48,6 +48,10 @@ const jsonLd =
           '@type': 'Organization',
           name: SITE.name,
           url: SITE.url,
+          logo: {
+            '@type': 'ImageObject',
+            url: new URL('/logo.png', SITE.url).toString(),
+          },
         },
         mainEntityOfPage: canonicalURL.toString(),
       }
@@ -60,6 +64,10 @@ const jsonLd =
         publisher: {
           '@type': 'Organization',
           name: SITE.name,
+          logo: {
+            '@type': 'ImageObject',
+            url: new URL('/logo.png', SITE.url).toString(),
+          },
         },
       };
 ---
@@ -69,7 +77,8 @@ const jsonLd =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
 
