@@ -1,0 +1,71 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<PageLayout title="Contact" description={`Contact ${SITE.name} for questions, feedback, or partnership inquiries.`}>
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight text-text sm:text-4xl">Contact us</h1>
+    <p class="mt-4 text-lg text-text-muted">
+      Have a question, correction, or suggestion? We'd love to hear from you.
+    </p>
+  </header>
+
+  <div class="prose-content">
+    <h2>Get in touch</h2>
+    <p>
+      The fastest way to reach us is by email at
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. We read every message and typically
+      respond within a few business days.
+    </p>
+
+    <h2>Contact form</h2>
+    <p>
+      You can also use the form below. Replace the Formspree action URL with your own free form
+      endpoint after deployment.
+    </p>
+  </div>
+
+  <form
+    class="mt-8 space-y-5 rounded-2xl border border-border bg-surface p-6 shadow-sm"
+    action="https://formspree.io/f/YOUR_FORM_ID"
+    method="POST"
+  >
+    <div>
+      <label for="name" class="mb-1.5 block text-sm font-medium text-text">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        class="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+      />
+    </div>
+    <div>
+      <label for="email" class="mb-1.5 block text-sm font-medium text-text">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+      />
+    </div>
+    <div>
+      <label for="message" class="mb-1.5 block text-sm font-medium text-text">Message</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        required
+        class="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+      ></textarea>
+    </div>
+    <button
+      type="submit"
+      class="rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent-hover"
+    >
+      Send message
+    </button>
+  </form>
+</PageLayout>

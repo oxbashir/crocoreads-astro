@@ -1,17 +1,80 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../config/site';
 
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featured = posts.find((post) => post.data.featured) ?? posts[0];
+const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title={`${SITE.name} — ${SITE.tagline}`} description={SITE.description}>
+  <section class="border-b border-border bg-gradient-to-b from-white to-background">
+    <div class="mx-auto max-w-6xl px-4 py-16 text-center sm:py-20">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">Welcome to {SITE.name}</p>
+      <h1 class="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-text sm:text-5xl">
+        {SITE.tagline}
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-text-muted">
+        {SITE.description}
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="/blog"
+          class="rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-accent-hover"
+        >
+          Browse articles
+        </a>
+        <a
+          href="/about"
+          class="rounded-xl border border-border bg-surface px-6 py-3 text-sm font-semibold text-text transition hover:bg-slate-50"
+        >
+          About us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {
+    featured && (
+      <section class="mx-auto max-w-6xl px-4 py-14">
+        <div class="mb-8 flex items-end justify-between gap-4">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wide text-accent">Featured</p>
+            <h2 class="mt-1 text-2xl font-bold text-text">Start here</h2>
+          </div>
+        </div>
+        <div class="relative">
+          <PostCard post={featured} />
+        </div>
+      </section>
+    )
+  }
+
+  {
+    latest.length > 0 && (
+      <section class="mx-auto max-w-6xl px-4 pb-16">
+        <div class="mb-8 flex items-end justify-between gap-4">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wide text-accent">Latest</p>
+            <h2 class="mt-1 text-2xl font-bold text-text">Recent articles</h2>
+          </div>
+          <a href="/blog" class="text-sm font-medium text-accent hover:underline">
+            View all →
+          </a>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {latest.map((post) => (
+            <div class="relative">
+              <PostCard post={post} />
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

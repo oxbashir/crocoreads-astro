@@ -1,0 +1,121 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+
+const lastUpdated = 'July 26, 2026';
+---
+
+<PageLayout
+  title="Privacy Policy"
+  description={`Privacy Policy for ${SITE.name} — how we collect, use, and protect your information.`}
+>
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight text-text sm:text-4xl">Privacy Policy</h1>
+    <p class="mt-4 text-sm text-text-muted">Last updated: {lastUpdated}</p>
+  </header>
+
+  <div class="prose-content">
+    <p>
+      This Privacy Policy describes how {SITE.name} ("we," "us," or "our") collects, uses, and
+      shares information when you visit {SITE.url} (the "Site").
+    </p>
+
+    <h2>Information we collect</h2>
+    <h3>Information you provide</h3>
+    <p>
+      If you contact us through our contact form or email, we collect the information you submit,
+      such as your name, email address, and message content. We use this only to respond to your
+      inquiry.
+    </p>
+
+    <h3>Automatically collected information</h3>
+    <p>
+      When you visit the Site, we and our third-party partners may automatically collect certain
+      information, including:
+    </p>
+    <ul>
+      <li>IP address and approximate location</li>
+      <li>Browser type and device information</li>
+      <li>Pages visited, time spent, and referring URLs</li>
+      <li>Cookies and similar tracking technologies</li>
+    </ul>
+
+    <h2>Google AdSense</h2>
+    <p>
+      We use Google AdSense to display advertisements. Google and its partners may use cookies to
+      serve ads based on your prior visits to this Site or other websites. Google's use of
+      advertising cookies enables it and its partners to serve ads to you.
+    </p>
+    <p>
+      You may opt out of personalized advertising by visiting
+      <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer"
+        >Google Ads Settings</a
+      >. You can also visit
+      <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer"
+        >aboutads.info</a
+      > to opt out of third-party vendor cookies for personalized advertising.
+    </p>
+    <p>
+      For more information on how Google uses data, see
+      <a
+        href="https://policies.google.com/technologies/partner-sites"
+        target="_blank"
+        rel="noopener noreferrer">Google's partner sites policy</a
+      >.
+    </p>
+
+    <h2>Google Analytics</h2>
+    <p>
+      We may use Google Analytics to understand how visitors use the Site. Google Analytics collects
+      information such as how often users visit, which pages they view, and what other sites they
+      used prior to visiting. We use this data to improve our content and user experience.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      Cookies are small text files stored on your device. We use cookies for analytics, advertising,
+      and basic site functionality. You can control cookies through your browser settings. Disabling
+      cookies may affect certain features of the Site.
+    </p>
+
+    <h2>How we use your information</h2>
+    <ul>
+      <li>Operate and improve the Site</li>
+      <li>Respond to contact requests</li>
+      <li>Display relevant advertisements</li>
+      <li>Analyze traffic and usage patterns</li>
+      <li>Protect against fraud and abuse</li>
+    </ul>
+
+    <h2>Data sharing</h2>
+    <p>
+      We do not sell your personal information. We may share data with service providers who assist
+      in operating the Site (such as hosting and analytics providers) and as required by law.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      Depending on your location, you may have rights to access, correct, or delete personal data we
+      hold about you. To exercise these rights, contact us at
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+
+    <h2>Children's privacy</h2>
+    <p>
+      The Site is not directed to children under 13. We do not knowingly collect personal
+      information from children.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      We may update this Privacy Policy from time to time. Changes will be posted on this page with
+      an updated revision date.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about this Privacy Policy? Email us at
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+  </div>
+</PageLayout>

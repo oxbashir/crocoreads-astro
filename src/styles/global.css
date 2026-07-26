@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #fafafa;
+  --color-surface: #ffffff;
+  --color-text: #1a1a2e;
+  --color-text-muted: #64748b;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-border: #e2e8f0;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-text antialiased;
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    @apply bg-accent/20 text-text;
+  }
+}
+
+@layer components {
+  .prose-content {
+    @apply text-text leading-relaxed;
+
+    & h2 {
+      @apply mt-10 mb-4 text-2xl font-bold tracking-tight text-text;
+    }
+
+    & h3 {
+      @apply mt-8 mb-3 text-xl font-semibold text-text;
+    }
+
+    & p {
+      @apply mb-5 text-base text-text/90;
+    }
+
+    & ul,
+    & ol {
+      @apply mb-5 ml-6 space-y-2 text-text/90;
+    }
+
+    & ul {
+      @apply list-disc;
+    }
+
+    & ol {
+      @apply list-decimal;
+    }
+
+    & li {
+      @apply pl-1;
+    }
+
+    & a {
+      @apply text-accent underline decoration-accent/30 underline-offset-2 transition hover:decoration-accent;
+    }
+
+    & blockquote {
+      @apply my-6 border-l-4 border-accent/40 bg-accent/5 py-3 pl-5 italic text-text-muted;
+    }
+
+    & code {
+      @apply rounded bg-slate-100 px-1.5 py-0.5 text-sm font-medium text-accent;
+    }
+
+    & pre {
+      @apply my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100;
+    }
+
+    & pre code {
+      @apply bg-transparent p-0 text-inherit;
+    }
+
+    & img {
+      @apply my-6 rounded-xl;
+    }
+
+    & hr {
+      @apply my-10 border-border;
+    }
+
+    & strong {
+      @apply font-semibold text-text;
+    }
+  }
+}

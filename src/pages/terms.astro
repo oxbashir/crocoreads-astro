@@ -1,0 +1,72 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+
+const lastUpdated = 'July 26, 2026';
+---
+
+<PageLayout
+  title="Terms of Service"
+  description={`Terms of Service for ${SITE.name} — rules and guidelines for using our website.`}
+>
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight text-text sm:text-4xl">Terms of Service</h1>
+    <p class="mt-4 text-sm text-text-muted">Last updated: {lastUpdated}</p>
+  </header>
+
+  <div class="prose-content">
+    <p>
+      By accessing or using {SITE.name} at {SITE.url}, you agree to these Terms of Service. If you
+      do not agree, please do not use the Site.
+    </p>
+
+    <h2>Use of the Site</h2>
+    <p>
+      You may use the Site for personal, non-commercial purposes. You agree not to misuse the Site,
+      attempt unauthorized access, scrape content at scale, or interfere with its operation.
+    </p>
+
+    <h2>Content</h2>
+    <p>
+      All articles, graphics, and other materials on the Site are owned by {SITE.name} or its
+      licensors and protected by copyright. You may share links to our articles and quote brief
+      excerpts with attribution. You may not republish full articles without written permission.
+    </p>
+
+    <h2>Disclaimer</h2>
+    <p>
+      Content on {SITE.name} is provided for informational purposes only. While we strive for
+      accuracy, we make no warranties about completeness, reliability, or suitability. Technical
+      information may become outdated as tools and platforms change.
+    </p>
+    <p>
+      You follow tutorials and recommendations at your own risk. We are not liable for any damages
+      arising from your use of the Site or reliance on its content.
+    </p>
+
+    <h2>Third-party links</h2>
+    <p>
+      The Site may contain links to third-party websites or services. We are not responsible for
+      their content, privacy practices, or availability.
+    </p>
+
+    <h2>Advertising</h2>
+    <p>
+      The Site displays third-party advertisements through Google AdSense. We do not endorse
+      products or services shown in ads. Your interactions with advertisers are solely between you
+      and the advertiser.
+    </p>
+
+    <h2>Changes</h2>
+    <p>
+      We may modify these Terms at any time. Continued use of the Site after changes constitutes
+      acceptance of the updated Terms.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about these Terms? Contact us at
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+  </div>
+</PageLayout>

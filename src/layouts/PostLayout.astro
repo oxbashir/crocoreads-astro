@@ -1,0 +1,83 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { formatDate } from '../utils/formatDate';
+import { SITE, ADSENSE } from '../config/site';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  readingTime: number;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { post, readingTime, headings } = Astro.props;
+const { title, description, pubDate, updatedDate, author, tags } = post.data;
+
+const pageTitle = `${title} | ${SITE.name}`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  type="article"
+  publishedTime={pubDate.toISOString()}
+  modifiedTime={(updatedDate ?? pubDate).toISOString()}
+  author={author}
+>
+  <article class="mx-auto max-w-6xl px-4 py-10">
+    <div class="mb-8 max-w-3xl">
+      <div class="mb-4 flex flex-wrap items-center gap-3 text-sm text-text-muted">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime} min read</span>
+        <span aria-hidden="true">·</span>
+        <span>{author}</span>
+      </div>
+      <h1 class="text-3xl font-bold tracking-tight text-text sm:text-4xl lg:text-5xl">
+        {title}
+      </h1>
+      <p class="mt-4 text-lg text-text-muted">{description}</p>
+      {
+        tags.length > 0 && (
+          <ul class="mt-5 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <li>
+                <a
+                  href={`/blog?tag=${encodeURIComponent(tag)}`}
+                  class="rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent transition hover:bg-accent/20"
+                >
+                  {tag}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <div class="mb-8 max-w-3xl">
+      <AdSlot slotId={ADSENSE.slots.header} format="horizontal" label="Header banner ad" />
+    </div>
+
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_240px]">
+      <div class="min-w-0">
+        <div class="prose-content max-w-3xl">
+          <slot />
+        </div>
+
+        <div class="mt-10 max-w-3xl">
+          <AdSlot slotId={ADSENSE.slots.inArticle} format="rectangle" label="In-article ad" />
+        </div>
+      </div>
+
+      <aside class="hidden lg:block">
+        <div class="sticky top-24 space-y-6">
+          {headings.length > 2 && <TableOfContents headings={headings} />}
+          <AdSlot slotId={ADSENSE.slots.sidebar} format="vertical" label="Sidebar ad" />
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

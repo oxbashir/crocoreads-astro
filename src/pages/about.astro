@@ -1,0 +1,50 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<PageLayout title="About" description={`Learn about ${SITE.name}, our mission, and the author behind the articles.`}>
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight text-text sm:text-4xl">About {SITE.name}</h1>
+    <p class="mt-4 text-lg text-text-muted">
+      We publish clear, practical guides for developers, freelancers, and anyone building on the web.
+    </p>
+  </header>
+
+  <div class="prose-content">
+    <h2>Our mission</h2>
+    <p>
+      {SITE.name} exists to cut through noise. The web is full of shallow listicles and outdated
+      tutorials. We focus on evergreen topics — static sites, productivity, and modern development
+      workflows — explained in plain language with steps you can follow today.
+    </p>
+
+    <h2>Who writes here</h2>
+    <p>
+      Hi, I'm {SITE.author}. {SITE.authorBio} I started this site to document solutions I actually use
+      in my work and to help others ship faster without unnecessary complexity or cost.
+    </p>
+
+    <h2>What you'll find</h2>
+    <ul>
+      <li>Step-by-step tutorials with real examples</li>
+      <li>Honest reviews of tools that save time</li>
+      <li>Beginner-friendly explanations of technical concepts</li>
+      <li>No fluff, no filler — every article is written to be useful on its own</li>
+    </ul>
+
+    <h2>Editorial standards</h2>
+    <p>
+      Every article is researched, written, and edited for accuracy. We update posts when tools or
+      best practices change. If you spot an error, please <a href="/contact">contact us</a> — we
+      appreciate corrections.
+    </p>
+
+    <h2>Advertising</h2>
+    <p>
+      {SITE.name} displays advertisements through Google AdSense to support free content. Ads are
+      clearly separated from editorial content and never influence what we write about. See our
+      <a href="/privacy">Privacy Policy</a> for details on how data is handled.
+    </p>
+  </div>
+</PageLayout>
