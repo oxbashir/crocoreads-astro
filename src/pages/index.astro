@@ -11,11 +11,10 @@ const supabase = await getSupabase(Astro);
 const posts = await getPublishedArticles(supabase);
 const featured = posts.find((post) => post.featured) ?? posts[0];
 const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
-const isProduction = import.meta.env.PROD;
 ---
 
 <BaseLayout title={`${SITE.name} — ${SITE.tagline}`} description={SITE.description}>
-  {!supabase && <SetupBanner production={isProduction} />}
+  {import.meta.env.DEV && !supabase && <SetupBanner production={false} />}
 
   <section class="border-b border-border bg-gradient-to-b from-white to-background">
     <div class="mx-auto max-w-6xl px-4 py-16 text-center sm:py-20">

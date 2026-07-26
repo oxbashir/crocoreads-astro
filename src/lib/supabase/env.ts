@@ -1,12 +1,21 @@
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from 'astro:env/client';
+import { getSecret } from 'astro:env/server';
 import { env as cloudflareEnv } from 'cloudflare:workers';
+import { SUPABASE_PROJECT_URL } from '../../config/supabase';
 
 type EnvRecord = Record<string, unknown>;
 
-const ENV_KEYS = {
-  url: ['PUBLIC_SUPABASE_URL', 'SUPABASE_URL'],
-  anonKey: ['PUBLIC_SUPABASE_ANON_KEY', 'SUPABASE_ANON_KEY', 'SUPABASE_KEY'],
-  serviceRoleKey: ['SUPABASE_SERVICE_ROLE_KEY'],
-} as const;
+const ANON_KEY_NAMES = [
+  'PUBLIC_SUPABASE_ANON_KEY',
+  'SUPABASE_ANON_KEY',
+  'SUPABASE_KEY',
+] as const;
+
+const SERVICE_KEY_NAMES = [
+  'SUPABASE_SERVICE_ROLE_KEY',
+  'SUPABASE_SECRET_KEY',
+  'SUPABASE_SECRET_KEYS',
+] as const;
 
 function readImportMetaEnv(key: string): string | undefined {
   const value = import.meta.env[key];
@@ -25,7 +34,11 @@ function readCloudflareEnv(key: string): string | undefined {
 }
 
 function readEnv(key: string): string | undefined {
-  return readCloudflareEnv(key) ?? readProcessEnv(key) ?? readImportMetaEnv(key);
+  return (
+    readCloudflareEnv(key) ??
+    readProcessEnv(key) ??
+    readImportMetaEnv(key)
+  );
 }
 
 function readFirstEnv(keys: readonly string[]): string | undefined {
@@ -43,11 +56,21 @@ export interface SupabaseEnv {
 }
 
 export function resolveSupabaseEnv(): SupabaseEnv {
-  return {
-    url: readFirstEnv(ENV_KEYS.url),
-    anonKey: readFirstEnv(ENV_KEYS.anonKey),
-    serviceRoleKey: readFirstEnv(ENV_KEYS.serviceRoleKey),
-  };
+  const url =
+    PUBLIC_SUPABASE_URL ||
+    readEnv('PUBLIC_SUPABASE_URL') ||
+    readEnv('SUPABASE_URL') ||
+    SUPABASE_PROJECT_URL;
+
+  const anonKey =
+    PUBLIC_SUPABASE_ANON_KEY ||
+    readFirstEnv(ANON_KEY_NAMES);
+
+  const serviceRoleKey =
+    getSecret('SUPABASE_SERVICE_ROLE_KEY') ||
+    readFirstEnv(SERVICE_KEY_NAMES);
+
+  return { url, anonKey, serviceRoleKey };
 }
 
 export function isSupabaseConfigured(): boolean {
