@@ -9,12 +9,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  if (!isSupabaseConfigured()) {
+  if (!isSupabaseConfigured(context.locals)) {
     return context.redirect('/admin/login?setup=1');
   }
 
   try {
-    const supabase = createSupabaseServerClient(context.cookies);
+    const supabase = createSupabaseServerClient(context.cookies, context.locals);
     const {
       data: { user },
     } = await supabase.auth.getUser();

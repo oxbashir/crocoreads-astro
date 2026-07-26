@@ -1,0 +1,4 @@
+# Copy to .dev.vars for Cloudflare local SSR (platformProxy reads this file).
+PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+PUBLIC_SUPABASE_ANON_KEY=your-anon-or-publishable-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key

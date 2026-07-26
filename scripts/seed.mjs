@@ -7,16 +7,27 @@ import { createClient } from '@supabase/supabase-js';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, basename } from 'node:path';
 
-const url = process.env.PUBLIC_SUPABASE_URL;
+const url = process.env.PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!url || !serviceKey) {
-  console.error('Missing PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env');
+  console.error(
+    'Missing Supabase credentials. Set PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env',
+  );
   process.exit(1);
 }
 
 const supabase = createClient(url, serviceKey);
 const blogDir = join(process.cwd(), 'src/content/blog');
+
+const { error: heroColumnError } = await supabase.from('articles').select('hero_image').limit(1);
+const includeHeroImage = !heroColumnError;
+
+if (heroColumnError) {
+  console.warn(
+    'hero_image column missing — run supabase/migrations/001_hero_image.sql in Supabase SQL Editor, then re-seed for hero images.',
+  );
+}
 
 function parseFrontmatter(raw) {
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
@@ -67,6 +78,10 @@ for (const file of files) {
     featured: meta.featured ?? false,
     pub_date: meta.pubDate ? new Date(meta.pubDate).toISOString() : new Date().toISOString(),
   };
+
+  if (includeHeroImage && meta.heroImage) {
+    row.hero_image = meta.heroImage;
+  }
 
   const { error } = await supabase.from('articles').upsert(row, { onConflict: 'slug' });
   if (error) {

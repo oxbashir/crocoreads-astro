@@ -25,7 +25,16 @@ export interface Profile {
 
 export type ArticleInput = Pick<
   Article,
-  'slug' | 'title' | 'description' | 'content' | 'author_name' | 'tags' | 'draft' | 'featured' | 'pub_date'
+  | 'slug'
+  | 'title'
+  | 'description'
+  | 'content'
+  | 'author_name'
+  | 'tags'
+  | 'draft'
+  | 'featured'
+  | 'hero_image'
+  | 'pub_date'
 >;
 
 export interface Heading {

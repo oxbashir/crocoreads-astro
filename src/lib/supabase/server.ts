@@ -1,14 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import type { AstroCookies } from 'astro';
+import { resolveSupabaseEnv } from './env';
 
-export function createSupabaseServerClient(cookies: AstroCookies) {
-  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+export function createSupabaseServerClient(cookies: AstroCookies, locals?: App.Locals) {
+  const { url: supabaseUrl, anonKey: supabaseAnonKey } = resolveSupabaseEnv(locals);
 
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error(
-      'Missing PUBLIC_SUPABASE_URL or PUBLIC_SUPABASE_ANON_KEY. Copy .env.example to .env and fill in your Supabase credentials.',
+      'Missing Supabase credentials. Set PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_ANON_KEY in .env (local) or Cloudflare Pages environment variables (production).',
     );
   }
 
@@ -27,9 +27,8 @@ export function createSupabaseServerClient(cookies: AstroCookies) {
   });
 }
 
-export function createSupabaseAdminClient() {
-  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+export function createSupabaseAdminClient(locals?: App.Locals) {
+  const { url: supabaseUrl, serviceRoleKey } = resolveSupabaseEnv(locals);
 
   if (!supabaseUrl || !serviceRoleKey) {
     throw new Error('Missing PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY for admin operations.');

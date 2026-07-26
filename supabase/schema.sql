@@ -24,6 +24,7 @@ create table if not exists public.articles (
   tags text[] not null default '{}',
   draft boolean not null default false,
   featured boolean not null default false,
+  hero_image text,
   pub_date timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   created_at timestamptz not null default now()
@@ -117,3 +118,6 @@ create policy "Authenticated can delete articles"
 
 -- After first signup, promote yourself to admin in SQL Editor:
 -- update public.profiles set role = 'admin' where email = 'your@email.com';
+
+-- If you already created the articles table, add hero images:
+-- alter table public.articles add column if not exists hero_image text;

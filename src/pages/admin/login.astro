@@ -6,11 +6,11 @@ import { SITE } from '../../config/site';
 
 export const prerender = false;
 
-const needsSetup = !isSupabaseConfigured() || Astro.url.searchParams.get('setup') === '1';
+const needsSetup = !isSupabaseConfigured(Astro.locals) || Astro.url.searchParams.get('setup') === '1';
 let errorMessage = '';
 
 if (!needsSetup && Astro.request.method === 'POST') {
-  const supabase = createSupabaseServerClient(Astro.cookies);
+  const supabase = createSupabaseServerClient(Astro.cookies, Astro.locals);
   const formData = await Astro.request.formData();
   const email = String(formData.get('email') ?? '');
   const password = String(formData.get('password') ?? '');
