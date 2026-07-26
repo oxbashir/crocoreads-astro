@@ -7,11 +7,23 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const { title, description, pub_date, tags, slug } = article;
+const { title, description, pub_date, tags, slug, hero_image } = article;
 const pubDate = new Date(pub_date);
 ---
 
 <article class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+  {
+    hero_image && (
+      <img
+        src={hero_image}
+        alt=""
+        width="400"
+        height="225"
+        class="h-44 w-full object-cover"
+        loading="lazy"
+      />
+    )
+  }
   <div class="flex flex-1 flex-col p-6">
     <div class="mb-3 flex flex-wrap items-center gap-2 text-xs text-text-muted">
       <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>

@@ -9,6 +9,7 @@ export interface Article {
   tags: string[];
   draft: boolean;
   featured: boolean;
+  hero_image?: string | null;
   pub_date: string;
   updated_at: string;
   created_at: string;

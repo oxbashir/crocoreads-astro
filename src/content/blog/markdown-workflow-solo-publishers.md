@@ -45,6 +45,7 @@ description: "One or two sentences for SEO and social previews."
 pubDate: 2026-06-28
 tags: ["Writing", "Workflow"]
 draft: false
+heroImage: "/images/blog/markdown-workflow-solo-publishers.svg"
 ---
 ```
 

@@ -12,6 +12,7 @@ function mapMarkdownToArticle(
     tags: string[];
     draft: boolean;
     featured: boolean;
+    heroImage?: string;
   },
   content: string,
 ): Article {
@@ -29,6 +30,7 @@ function mapMarkdownToArticle(
     tags: data.tags,
     draft: data.draft,
     featured: data.featured,
+    hero_image: data.heroImage ?? null,
     pub_date: pubDate,
     updated_at: updatedAt,
     created_at: pubDate,

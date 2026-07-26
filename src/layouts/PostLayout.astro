@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { article, readingTime, headings, htmlContent } = Astro.props;
-const { title, description, pub_date, updated_at, author_name, tags } = article;
+const { title, description, pub_date, updated_at, author_name, tags, hero_image } = article;
 const pubDate = new Date(pub_date);
 const updatedDate = new Date(updated_at);
 
@@ -28,8 +28,21 @@ const pageTitle = `${title} | ${SITE.name}`;
   publishedTime={pubDate.toISOString()}
   modifiedTime={updatedDate.toISOString()}
   author={author_name}
+  image={hero_image ?? undefined}
 >
   <article class="mx-auto max-w-6xl px-4 py-10">
+    {
+      hero_image && (
+        <img
+          src={hero_image}
+          alt=""
+          width="1200"
+          height="630"
+          class="mb-8 max-w-3xl rounded-2xl object-cover shadow-sm"
+          loading="eager"
+        />
+      )
+    }
     <div class="mb-8 max-w-3xl">
       <div class="mb-4 flex flex-wrap items-center gap-3 text-sm text-text-muted">
         <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
