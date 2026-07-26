@@ -5,7 +5,7 @@ pubDate: 2026-04-08
 author: "Osama"
 tags: ["SEO", "Content Strategy", "Publishing"]
 draft: false
-heroImage: "/images/blog/internal-linking-strategy.svg"
+heroImage: "/images/blog/internal-linking-strategy.png"
 ---
 
 Internal links are the connections between pages on your own website. They help readers discover related articles, help search engines understand site structure, and distribute ranking strength from your strongest pages to newer ones.

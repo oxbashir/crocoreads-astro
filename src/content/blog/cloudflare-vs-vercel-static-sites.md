@@ -5,7 +5,7 @@ pubDate: 2026-07-18
 author: "Osama"
 tags: ["Web Development", "Hosting", "Publishing"]
 draft: false
-heroImage: "/images/blog/cloudflare-vs-vercel-static-sites.svg"
+heroImage: "/images/blog/cloudflare-vs-vercel-static-sites.png"
 ---
 
 Choosing where to host a static blog or content site comes down to a few practical questions: Will the free tier survive your traffic? How fast do builds run? Does the platform integrate with your Git workflow? And when you need edge features or analytics, what costs appear later?

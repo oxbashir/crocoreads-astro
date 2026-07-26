@@ -5,7 +5,7 @@ pubDate: 2026-04-15
 author: "Osama"
 tags: ["Publishing", "SEO", "Productivity"]
 draft: false
-heroImage: "/images/blog/free-stock-photos-bloggers.svg"
+heroImage: "/images/blog/free-stock-photos-bloggers.png"
 ---
 
 Every blog post needs visuals. Featured images improve click-through rates in search results, break up long text for readability, and make social shares more compelling. Yet hiring a photographer for every article is impractical, and low-quality clip art signals amateur publishing to both readers and ad networks.

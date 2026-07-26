@@ -5,7 +5,7 @@ pubDate: 2026-02-05
 author: "Osama"
 tags: ["Analytics", "Publishing", "Web Development"]
 draft: false
-heroImage: "/images/blog/best-free-analytics-tools.svg"
+heroImage: "/images/blog/best-free-analytics-tools.png"
 ---
 
 You cannot improve what you do not measure. For solo bloggers and small publishers, the challenge is not finding analytics tools — it is choosing one that fits your budget, privacy expectations, and technical setup without slowing down your site or drowning you in dashboards you never open.

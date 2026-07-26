@@ -5,7 +5,7 @@ pubDate: 2026-07-26
 author: "Osama"
 tags: ["AdSense", "Monetization", "Publishing"]
 draft: false
-heroImage: "/images/blog/adsense-vs-affiliate-marketing.svg"
+heroImage: "/images/blog/adsense-vs-affiliate-marketing.png"
 ---
 
 New publishers face the same question after a few months of writing: how does this site pay for itself? The two most accessible answers are **Google AdSense** (display ads paid per impression or click) and **affiliate marketing** (commissions when readers buy through your links). Both work on content sites. They reward different content types, traffic levels, and maintenance styles.

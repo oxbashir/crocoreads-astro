@@ -4,6 +4,7 @@ description: "How to write, organize, and publish articles efficiently using Mar
 pubDate: 2026-06-28
 author: "Osama"
 tags: ["Productivity", "Writing", "Markdown"]
+heroImage: "/images/blog/markdown-workflow-solo-publishers.png"
 ---
 
 Every publishing platform promises to make writing easy. WordPress gives you a dashboard. Medium gives you a blank page. Notion gives you a workspace. Yet many solo publishers eventually migrate to something simpler: Markdown files in a folder, tracked with Git, built by a static site generator.

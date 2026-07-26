@@ -5,7 +5,7 @@ pubDate: 2026-04-08
 author: "Osama"
 tags: ["Productivity", "Publishing", "Writing"]
 draft: false
-heroImage: "/images/blog/batch-write-blog-posts.svg"
+heroImage: "/images/blog/batch-write-blog-posts.png"
 ---
 
 Publishing one post at a time feels virtuous until you realize how much overhead each piece carries. Every article repeats the same setup: choose a topic, open the editor, write frontmatter, find images, preview, commit, promote. Context switching between writing, editing, and admin tasks destroys momentum.

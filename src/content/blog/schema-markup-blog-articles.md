@@ -5,7 +5,7 @@ pubDate: 2026-01-15
 author: "Osama"
 tags: ["SEO", "Publishing", "Web Development"]
 draft: false
-heroImage: "/images/blog/schema-markup-blog-articles.svg"
+heroImage: "/images/blog/schema-markup-blog-articles.png"
 ---
 
 Search engines are good at reading text, but they still guess at structure. Is that date the publish date or a last-updated timestamp? Is the author a person or an organization? Schema markup answers those questions explicitly — in a language Google, Bing, and other crawlers understand without ambiguity.

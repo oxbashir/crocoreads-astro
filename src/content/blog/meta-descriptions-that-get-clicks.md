@@ -5,7 +5,7 @@ pubDate: 2026-06-03
 author: "Osama"
 tags: ["SEO", "Publishing", "Content Strategy"]
 draft: false
-heroImage: "/images/blog/meta-descriptions-that-get-clicks.svg"
+heroImage: "/images/blog/meta-descriptions-that-get-clicks.png"
 ---
 
 Meta descriptions are the short summaries beneath your title in Google search results. Google may rewrite them — but when your description appears as written, it directly influences whether someone clicks your link instead of the nine others on the page.

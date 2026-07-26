@@ -5,7 +5,7 @@ pubDate: 2026-05-22
 author: "Osama"
 tags: ["SEO", "Publishing", "Productivity"]
 draft: false
-heroImage: "/images/blog/update-old-posts-seo.svg"
+heroImage: "/images/blog/update-old-posts-seo.png"
 ---
 
 Publishing new content feels productive. Updating old posts feels like housekeeping. Yet for established blogs, content refreshes often deliver faster SEO returns than brand-new articles — existing URLs already have backlinks, indexing history, and accumulated authority.

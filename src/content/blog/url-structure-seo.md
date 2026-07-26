@@ -5,7 +5,7 @@ pubDate: 2026-04-22
 author: "Osama"
 tags: ["SEO", "Publishing", "Web Development"]
 draft: false
-heroImage: "/images/blog/url-structure-seo.svg"
+heroImage: "/images/blog/url-structure-seo.png"
 ---
 
 URLs are one of the most overlooked SEO levers on independent blogs. They appear in search results, browser tabs, analytics reports, and every backlink pointing to your site. A clear URL tells humans and search engines what a page is about before anyone reads a single word.

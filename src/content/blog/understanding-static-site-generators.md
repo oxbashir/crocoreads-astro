@@ -4,6 +4,7 @@ description: "Learn what static site generators are, how they work, and why they
 pubDate: 2026-07-10
 author: "Osama"
 tags: ["Web Development", "Static Sites", "Beginner"]
+heroImage: "/images/blog/understanding-static-site-generators.png"
 ---
 
 If you have researched how to build a blog or portfolio recently, you have probably encountered the term "static site generator." Tools like Astro, Hugo, Jekyll, and Eleventy appear in tutorial after tutorial — often recommended as modern alternatives to WordPress.

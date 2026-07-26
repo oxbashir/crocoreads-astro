@@ -5,7 +5,7 @@ pubDate: 2026-06-08
 author: "Osama"
 tags: ["Publishing", "Web Development", "SEO"]
 draft: false
-heroImage: "/images/blog/blog-comment-sections-best-practices.svg"
+heroImage: "/images/blog/blog-comment-sections-best-practices.png"
 ---
 
 For years, the comment section was where blogs felt alive — readers asked questions, authors clarified points, and communities formed under individual articles. In 2026, many publishers disable comments entirely and point readers to Discord, X, or LinkedIn instead. Others keep comments and treat them as SEO and engagement assets.

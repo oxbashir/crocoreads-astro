@@ -5,7 +5,7 @@ pubDate: 2026-02-10
 author: "Osama"
 tags: ["Publishing", "SEO", "Branding"]
 draft: false
-heroImage: "/images/blog/choose-domain-name-blog.svg"
+heroImage: "/images/blog/choose-domain-name-blog.png"
 ---
 
 Your domain name is the address readers type, share, and remember. It appears in search results, email signatures, and social bios long before anyone reads your first article. A strong domain makes your blog feel established; a weak one makes even excellent content harder to discover and harder to trust.

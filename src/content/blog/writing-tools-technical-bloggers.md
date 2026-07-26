@@ -5,7 +5,7 @@ pubDate: 2026-03-12
 author: "Osama"
 tags: ["Productivity", "Publishing", "Writing"]
 draft: false
-heroImage: "/images/blog/writing-tools-technical-bloggers.svg"
+heroImage: "/images/blog/writing-tools-technical-bloggers.png"
 ---
 
 Technical blogging sits at an awkward intersection. You need the precision of a developer — code blocks, version references, reproducible steps — and the clarity of a journalist. The wrong tools add friction: rich-text editors break fenced code, word processors hide Markdown, and generic grammar apps flag variable names as errors.

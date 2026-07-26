@@ -5,7 +5,7 @@ pubDate: 2026-08-25
 author: "Osama"
 tags: ["SEO", "Publishing", "AdSense"]
 draft: false
-heroImage: "/images/blog/google-eeat-for-bloggers.svg"
+heroImage: "/images/blog/google-eeat-for-bloggers.png"
 ---
 
 Google's quality raters evaluate pages using E-E-A-T — Experience, Expertise, Authoritativeness, and Trustworthiness. The extra "E" for Experience was added to stress that first-hand knowledge matters, not just credentials. E-E-A-T is not a direct ranking score you can measure in Search Console, but it describes the kind of content Google's algorithms are trained to reward — especially for topics that affect health, finances, or safety, grouped under "Your Money or Your Life" (YMYL).

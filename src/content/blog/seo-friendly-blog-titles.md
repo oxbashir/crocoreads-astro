@@ -5,7 +5,7 @@ pubDate: 2026-03-12
 author: "Osama"
 tags: ["SEO", "Publishing", "Content Strategy"]
 draft: false
-heroImage: "/images/blog/seo-friendly-blog-titles.svg"
+heroImage: "/images/blog/seo-friendly-blog-titles.png"
 ---
 
 Your blog title appears in three high-stakes places: Google search results, social media previews, and your own navigation. A title that ranks but nobody clicks wastes your ranking. A title that gets clicks but targets the wrong keyword wastes your traffic.

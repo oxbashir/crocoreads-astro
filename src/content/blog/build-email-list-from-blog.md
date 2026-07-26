@@ -5,7 +5,7 @@ pubDate: 2026-05-15
 author: "Osama"
 tags: ["Newsletter", "Publishing", "Productivity"]
 draft: false
-heroImage: "/images/blog/build-email-list-from-blog.svg"
+heroImage: "/images/blog/build-email-list-from-blog.png"
 ---
 
 Search traffic fluctuates. Social algorithms change overnight. An email list is the one audience channel you own outright — no platform can throttle your reach to subscribers who explicitly asked to hear from you.

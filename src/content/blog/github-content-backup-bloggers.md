@@ -5,7 +5,7 @@ pubDate: 2026-06-25
 author: "Osama"
 tags: ["Publishing", "Productivity", "Web Development"]
 draft: false
-heroImage: "/images/blog/github-content-backup-bloggers.svg"
+heroImage: "/images/blog/github-content-backup-bloggers.png"
 ---
 
 Your blog content is an asset. Months or years of articles, research, and edits represent real work — yet many bloggers store it only in a CMS database or a hosting provider they do not control. One failed plugin update, compromised account, or host shutdown can erase that investment overnight.

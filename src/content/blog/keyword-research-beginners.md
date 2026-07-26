@@ -5,7 +5,7 @@ pubDate: 2026-04-18
 author: "Osama"
 tags: ["SEO", "Publishing", "Productivity"]
 draft: false
-heroImage: "/images/blog/keyword-research-beginners.svg"
+heroImage: "/images/blog/keyword-research-beginners.png"
 ---
 
 Keyword research sounds technical, but the core idea is simple: find what your audience types into Google, then write pages that answer those queries better than what already ranks. Solo bloggers who skip this step often publish excellent articles that nobody searches for — while mediocre listicles on high-demand topics steal the traffic.

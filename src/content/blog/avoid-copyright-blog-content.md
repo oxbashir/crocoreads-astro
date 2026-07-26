@@ -5,7 +5,7 @@ pubDate: 2026-02-20
 author: "Osama"
 tags: ["Publishing", "Legal", "AdSense"]
 draft: false
-heroImage: "/images/blog/avoid-copyright-blog-content.svg"
+heroImage: "/images/blog/avoid-copyright-blog-content.png"
 ---
 
 Copyright problems do not only happen to large news sites. Solo bloggers receive DMCA notices for stock photos used without a license, screenshot-heavy tutorials, copied product descriptions, and music embedded in video posts. A single valid complaint can take down pages, trigger AdSense policy reviews, or in worst cases lead to domain-level penalties.

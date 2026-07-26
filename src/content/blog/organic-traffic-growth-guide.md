@@ -5,7 +5,7 @@ pubDate: 2026-05-22
 author: "Osama"
 tags: ["SEO", "Publishing", "Analytics"]
 draft: false
-heroImage: "/images/blog/organic-traffic-growth-guide.svg"
+heroImage: "/images/blog/organic-traffic-growth-guide.png"
 ---
 
 Every new blogger checks Google Analytics hoping for a hockey stick. Reality is flatter: weeks of silence, a trickle from long-tail queries, then gradual compounding if you keep publishing. Understanding that curve prevents premature quitting and bad decisions like keyword stuffing or buying traffic bots.

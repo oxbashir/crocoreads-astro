@@ -5,7 +5,7 @@ pubDate: 2026-06-10
 author: "Osama"
 tags: ["SEO", "Web Development", "Publishing"]
 draft: false
-heroImage: "/images/blog/submit-sitemap-google.svg"
+heroImage: "/images/blog/submit-sitemap-google.png"
 ---
 
 You published ten solid articles. Google still shows zero impressions. Often the problem is not content quality — it is discovery. Search engines need a map of your URLs. An XML sitemap provides that map, and Google Search Console is where you hand it over.

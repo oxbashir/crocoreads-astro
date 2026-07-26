@@ -5,7 +5,7 @@ pubDate: 2026-05-08
 author: "Osama"
 tags: ["SEO", "Productivity", "Publishing"]
 draft: false
-heroImage: "/images/blog/track-blog-performance-metrics.svg"
+heroImage: "/images/blog/track-blog-performance-metrics.png"
 ---
 
 Publishing without measurement is guessing. You might feel busy — writing posts, sharing on social, tweaking themes — while traffic flatlines and revenue never materializes. Tracking blog performance metrics gives you feedback loops: which topics resonate, which pages rank, where readers drop off, and whether monetization experiments work.

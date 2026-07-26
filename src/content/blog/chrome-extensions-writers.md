@@ -5,7 +5,7 @@ pubDate: 2026-05-19
 author: "Osama"
 tags: ["Writing", "Productivity", "Tools"]
 draft: false
-heroImage: "/images/blog/chrome-extensions-writers.svg"
+heroImage: "/images/blog/chrome-extensions-writers.png"
 ---
 
 Writing happens everywhere now — Google Docs, Notion, WordPress, Substack, GitHub, and a dozen tabs you opened "just for research." Chrome is the default workspace for many bloggers, which makes extensions one of the highest-leverage upgrades you can make. The right tools remove friction without turning your browser into a cluttered dashboard.

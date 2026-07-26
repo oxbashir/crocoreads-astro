@@ -5,7 +5,7 @@ pubDate: 2026-05-29
 author: "Osama"
 tags: ["Web Development", "Publishing", "Productivity"]
 draft: false
-heroImage: "/images/blog/privacy-friendly-analytics.svg"
+heroImage: "/images/blog/privacy-friendly-analytics.png"
 ---
 
 Google Analytics dominates web measurement — free, feature-rich, and deeply integrated with Google's advertising ecosystem. That integration is precisely why privacy-conscious bloggers seek alternatives. GA4 collects granular user data, requires cookie consent banners in the EU and UK, and adds JavaScript weight that affects page performance.

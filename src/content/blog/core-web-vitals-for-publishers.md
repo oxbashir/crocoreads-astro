@@ -4,6 +4,7 @@ description: "Learn what Core Web Vitals are, why they matter for SEO and AdSens
 pubDate: 2026-07-05
 author: "Osama"
 tags: ["Web Development", "SEO", "Performance"]
+heroImage: "/images/blog/core-web-vitals-for-publishers.png"
 ---
 
 Google Core Web Vitals are a set of metrics that measure real-world user experience on your website. Since 2021, they have been part of Google's ranking signals — meaning slow, unstable pages can rank lower in search results even if the content is excellent.

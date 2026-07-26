@@ -5,7 +5,7 @@ pubDate: 2026-05-01
 author: "Osama"
 tags: ["Web Development", "SEO", "Publishing"]
 draft: false
-heroImage: "/images/blog/mobile-first-content-sites.svg"
+heroImage: "/images/blog/mobile-first-content-sites.png"
 ---
 
 More than half of web traffic comes from phones. For blogs monetized through AdSense or affiliate links, mobile visitors often represent the majority of pageviews and ad impressions. Yet many content sites are still designed on a desktop monitor, then squeezed into smaller screens as an afterthought.

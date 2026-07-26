@@ -5,6 +5,7 @@ pubDate: 2026-07-20
 author: "Osama"
 tags: ["Web Development", "Astro", "Tutorial"]
 featured: true
+heroImage: "/images/blog/free-developer-blog-2026.png"
 ---
 
 Starting a developer blog in 2026 does not require paying for hosting, managing a database, or wrestling with a heavy CMS. Modern static site generators and free deployment platforms make it possible to publish professional-quality articles on a custom domain for the cost of the domain alone — typically ten to fifteen dollars per year.

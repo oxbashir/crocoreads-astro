@@ -5,7 +5,7 @@ pubDate: 2026-02-20
 author: "Osama"
 tags: ["Web Development", "Performance", "Publishing"]
 draft: false
-heroImage: "/images/blog/image-optimization-publishers.svg"
+heroImage: "/images/blog/image-optimization-publishers.png"
 ---
 
 Images make blog posts readable, shareable, and trustworthy. They also account for most of the bytes on a typical article page. An unoptimized screenshot at full resolution can weigh more than the entire HTML, CSS, and JavaScript combined — slowing Largest Contentful Paint, increasing bounce rates, and quietly hurting both SEO and ad revenue.

@@ -5,7 +5,7 @@ pubDate: 2026-07-18
 author: "Osama"
 tags: ["Publishing", "Web Development", "SEO"]
 draft: false
-heroImage: "/images/blog/launch-checklist-publishing-site.svg"
+heroImage: "/images/blog/launch-checklist-publishing-site.png"
 ---
 
 Launch day is not when you buy a domain. It is when a stranger can find your site, read an article, trust who published it, and return without hitting a broken page or a missing privacy policy. Rushing live without a checklist creates invisible problems — pages Google cannot index, ads on thin content, or analytics that never fired.

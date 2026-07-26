@@ -5,7 +5,7 @@ pubDate: 2026-05-22
 author: "Osama"
 tags: ["Productivity", "Publishing", "SEO"]
 draft: false
-heroImage: "/images/blog/repurpose-blog-content-social.svg"
+heroImage: "/images/blog/repurpose-blog-content-social.png"
 ---
 
 Writing a strong blog post takes hours. Letting it live only as a URL on your site wastes most of that effort. Social platforms reward frequency; blogs reward depth. Repurposing bridges the two — you extract smaller pieces from finished work and distribute them where your audience already spends time.
