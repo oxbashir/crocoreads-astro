@@ -11,6 +11,29 @@ const supabase = await getSupabase(Astro);
 const posts = await getPublishedArticles(supabase);
 const featured = posts.find((post) => post.featured) ?? posts[0];
 const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
+
+const topics = [
+  {
+    title: 'SEO & discovery',
+    body: 'Keyword research, title writing, sitemaps, Search Console, and on-page structure that helps articles get found.',
+    href: '/blog?tag=SEO',
+  },
+  {
+    title: 'Publishing workflow',
+    body: 'Markdown workflows, content calendars, batch writing, and habits that keep a solo blog shipping consistently.',
+    href: '/blog?tag=Productivity',
+  },
+  {
+    title: 'Site performance',
+    body: 'Core Web Vitals, image optimization, Astro speed tips, and hosting choices that keep pages fast for readers and ads.',
+    href: '/blog?tag=Performance',
+  },
+  {
+    title: 'Monetization basics',
+    body: 'AdSense readiness, policy pitfalls, affiliate comparisons, and how free analytics fit into a sustainable publishing site.',
+    href: '/blog?tag=AdSense',
+  },
+] as const;
 ---
 
 <BaseLayout title={`${SITE.name} — ${SITE.tagline}`} description={SITE.description}>
@@ -18,12 +41,15 @@ const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
 
   <section class="border-b border-border bg-gradient-to-b from-white to-background">
     <div class="mx-auto max-w-6xl px-4 py-16 text-center sm:py-20">
-      <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">Welcome to {SITE.name}</p>
+      <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
+        Practical guides for builders
+      </p>
       <h1 class="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-text sm:text-5xl">
-        {SITE.tagline}
+        {SITE.name} — {SITE.tagline}
       </h1>
       <p class="mx-auto mt-5 max-w-2xl text-lg text-text-muted">
-        {SITE.description}
+        Clear tutorials and playbooks on web publishing, SEO, productivity tools, and modern tech —
+        written for developers and lifelong learners who want actionable steps, not fluff.
       </p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <a
@@ -36,9 +62,51 @@ const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
           href="/about"
           class="rounded-xl border border-border bg-surface px-6 py-3 text-sm font-semibold text-text transition hover:bg-slate-50"
         >
-          About us
+          About CrocoReads
         </a>
       </div>
+    </div>
+  </section>
+
+  <section class="border-b border-border bg-surface">
+    <div class="mx-auto max-w-6xl px-4 py-14">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-2xl font-bold text-text">What you will find here</h2>
+        <p class="mt-3 text-text-muted">
+          CrocoReads focuses on the decisions that matter when you launch and grow a content site:
+          what to write, how to structure it for search, how to keep the stack simple, and how to
+          measure progress without drowning in tools.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2">
+        {
+          topics.map((topic) => (
+            <a
+              href={topic.href}
+              class="rounded-2xl border border-border bg-background p-6 transition hover:border-accent/40 hover:shadow-sm"
+            >
+              <h3 class="text-lg font-semibold text-text">{topic.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-text-muted">{topic.body}</p>
+              <p class="mt-4 text-sm font-medium text-accent">Explore topic →</p>
+            </a>
+          ))
+        }
+      </div>
+      <p class="mx-auto mt-10 max-w-3xl text-center text-sm text-text-muted">
+        Prefer a deeper dive first? Start with our{' '}
+        <a href="/about" class="text-accent hover:underline">about page</a>
+        {' '}or jump straight into the{' '}
+        <a href="/blog" class="text-accent hover:underline">full article archive</a>.
+        For indexing and search setup guidance from Google, see the official{' '}
+        <a
+          href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+          class="text-accent hover:underline"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          SEO Starter Guide
+        </a>.
+      </p>
     </div>
   </section>
 
@@ -63,7 +131,7 @@ const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
             <h2 class="mt-1 text-2xl font-bold text-text">Recent articles</h2>
           </div>
           <a href="/blog" class="text-sm font-medium text-accent hover:underline">
-            View all →
+            View all articles →
           </a>
         </div>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

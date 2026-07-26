@@ -37,5 +37,5 @@ export const NAV_LINKS = [
 export const FOOTER_LINKS = [
   { href: '/privacy', label: 'Privacy Policy' },
   { href: '/terms', label: 'Terms of Service' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/contact', label: 'Contact us' },
 ] as const;
