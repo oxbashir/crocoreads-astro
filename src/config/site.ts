@@ -12,9 +12,9 @@ export const SITE = {
 } as const;
 
 export const ADSENSE = {
-  /** Set to true after AdSense approval and add your publisher ID */
-  enabled: false,
-  clientId: 'ca-pub-XXXXXXXXXXXXXXXX',
+  enabled: true,
+  clientId: 'ca-pub-6184876648163942',
+  /** Replace with real slot IDs from AdSense → Ads → By ad unit */
   slots: {
     header: '0000000000',
     inArticle: '0000000001',
@@ -22,6 +22,10 @@ export const ADSENSE = {
     footer: '0000000003',
   },
 } as const;
+
+export function isAdSlotConfigured(slotId: string): boolean {
+  return Boolean(slotId) && !/^0+$/.test(slotId);
+}
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },

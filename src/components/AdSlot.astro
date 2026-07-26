@@ -1,5 +1,5 @@
 ---
-import { ADSENSE } from '../config/site';
+import { ADSENSE, isAdSlotConfigured } from '../config/site';
 
 interface Props {
   slotId: string;
@@ -14,11 +14,13 @@ const sizeClasses = {
   vertical: 'min-h-[600px]',
   rectangle: 'min-h-[250px]',
 };
+
+const showAd = ADSENSE.enabled && isAdSlotConfigured(slotId);
 ---
 
-<div class="ad-container my-6 flex justify-center" aria-label={label}>
-  {
-    ADSENSE.enabled ? (
+{
+  showAd && (
+    <div class="ad-container my-6 flex justify-center" aria-label={label}>
       <ins
         class="adsbygoogle block w-full"
         style="display:block"
@@ -27,23 +29,24 @@ const sizeClasses = {
         data-ad-format={format === 'horizontal' ? 'auto' : format}
         data-full-width-responsive="true"
       />
-    ) : (
+      <script is:inline>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  )
+}
+
+{
+  !ADSENSE.enabled && (
+    <div class="ad-container my-6 flex justify-center" aria-label={label}>
       <div
         class:list={[
           'flex w-full max-w-3xl items-center justify-center rounded-lg border-2 border-dashed border-border bg-slate-50 text-sm text-text-muted',
           sizeClasses[format],
         ]}
       >
-        <span>{label} (placeholder — enable AdSense after approval)</span>
+        <span>{label} (placeholder)</span>
       </div>
-    )
-  }
-</div>
-
-{
-  ADSENSE.enabled && (
-    <script is:inline>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    </div>
   )
 }
