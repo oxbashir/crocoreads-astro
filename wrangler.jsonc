@@ -4,6 +4,7 @@
   "compatibility_date": "2025-04-01",
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
-    "PUBLIC_SUPABASE_URL": "https://wzsawugcupyzljjwwmxl.supabase.co"
+    "PUBLIC_SUPABASE_URL": "https://wzsawugcupyzljjwwmxl.supabase.co",
+    "PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_K7mHJpp5QL-fvMSbew0w9w_V6FoFlf8"
   }
 }

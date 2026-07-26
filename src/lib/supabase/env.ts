@@ -1,7 +1,7 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from 'astro:env/client';
 import { getSecret } from 'astro:env/server';
 import { env as cloudflareEnv } from 'cloudflare:workers';
-import { SUPABASE_PROJECT_URL } from '../../config/supabase';
+import { SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY } from '../../config/supabase';
 
 type EnvRecord = Record<string, unknown>;
 
@@ -64,7 +64,8 @@ export function resolveSupabaseEnv(): SupabaseEnv {
 
   const anonKey =
     PUBLIC_SUPABASE_ANON_KEY ||
-    readFirstEnv(ANON_KEY_NAMES);
+    readFirstEnv(ANON_KEY_NAMES) ||
+    SUPABASE_ANON_KEY;
 
   const serviceRoleKey =
     getSecret('SUPABASE_SERVICE_ROLE_KEY') ||

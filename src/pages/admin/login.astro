@@ -61,9 +61,8 @@ if (cookieError) {
                 <code class="rounded bg-amber-100 px-1">.env</code> and add your Supabase keys
               </li>
               <li>
-                <strong>Production:</strong> add <code class="rounded bg-amber-100 px-1">PUBLIC_SUPABASE_URL</code> and{' '}
-                <code class="rounded bg-amber-100 px-1">PUBLIC_SUPABASE_ANON_KEY</code> in Cloudflare Pages → Settings →
-                Environment variables, then redeploy
+                <strong>Production:</strong> Supabase URL and publishable key are bundled in{' '}
+                <code class="rounded bg-amber-100 px-1">wrangler.jsonc</code>. Redeploy after changing them.
               </li>
               <li>Run <code class="rounded bg-amber-100 px-1">supabase/schema.sql</code> in Supabase SQL Editor</li>
               <li>Run <code class="rounded bg-amber-100 px-1">npm run seed</code> to import articles</li>
