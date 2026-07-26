@@ -1,7 +1,6 @@
 ---
 import PostLayout from '../../layouts/PostLayout.astro';
-import { createSupabaseServerClient } from '../../lib/supabase/server';
-import { getArticleBySlug } from '../../lib/articles';
+import { getArticleBySlug, getSupabase } from '../../lib/article-service';
 import { extractHeadings, renderMarkdown } from '../../lib/markdown';
 import { getReadingTime } from '../../utils/readingTime';
 
@@ -10,7 +9,7 @@ export const prerender = false;
 const slug = Astro.params.slug;
 if (!slug) return Astro.redirect('/blog');
 
-const supabase = createSupabaseServerClient(Astro.cookies);
+const supabase = await getSupabase(Astro);
 const article = await getArticleBySlug(supabase, slug);
 
 if (!article) return Astro.redirect('/404');

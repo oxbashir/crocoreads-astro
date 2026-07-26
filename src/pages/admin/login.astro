@@ -1,11 +1,15 @@
 ---
 import '../../styles/global.css';
 import { createSupabaseServerClient } from '../../lib/supabase/server';
+import { isSupabaseConfigured } from '../../lib/supabase/config';
 import { SITE } from '../../config/site';
 
 export const prerender = false;
 
-if (Astro.request.method === 'POST') {
+const needsSetup = !isSupabaseConfigured() || Astro.url.searchParams.get('setup') === '1';
+let errorMessage = '';
+
+if (!needsSetup && Astro.request.method === 'POST') {
   const supabase = createSupabaseServerClient(Astro.cookies);
   const formData = await Astro.request.formData();
   const email = String(formData.get('email') ?? '');
@@ -14,14 +18,15 @@ if (Astro.request.method === 'POST') {
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    Astro.cookies.set('admin_login_error', error.message, { path: '/', maxAge: 10 });
+    errorMessage = error.message;
   } else {
     return Astro.redirect('/admin/articles');
   }
 }
 
-const errorMessage = Astro.cookies.get('admin_login_error')?.value;
-if (errorMessage) {
+const cookieError = Astro.cookies.get('admin_login_error')?.value;
+if (cookieError) {
+  errorMessage = cookieError;
   Astro.cookies.delete('admin_login_error', { path: '/' });
 }
 ---
@@ -47,42 +52,68 @@ if (errorMessage) {
       </div>
 
       {
-        errorMessage && (
-          <p class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {errorMessage}
-          </p>
+        needsSetup ? (
+          <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm text-amber-950">
+            <p class="font-semibold">Supabase not configured</p>
+            <ol class="mt-3 list-decimal space-y-2 pl-5">
+              <li>
+                Copy <code class="rounded bg-amber-100 px-1">.env.example</code> to{' '}
+                <code class="rounded bg-amber-100 px-1">.env</code>
+              </li>
+              <li>Add your Supabase URL and anon key</li>
+              <li>Run <code class="rounded bg-amber-100 px-1">supabase/schema.sql</code> in Supabase SQL Editor</li>
+              <li>Restart the dev server</li>
+            </ol>
+            <a href="/" class="mt-4 inline-block text-accent hover:underline">
+              ← Back to site (works without Supabase)
+            </a>
+          </div>
+        ) : (
+          <>
+            {errorMessage && (
+              <p class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {errorMessage}
+              </p>
+            )}
+            <form method="POST" class="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-sm">
+              <div>
+                <label for="email" class="mb-1 block text-sm font-medium">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full rounded-lg border border-border px-3 py-2"
+                />
+              </div>
+              <div>
+                <label for="password" class="mb-1 block text-sm font-medium">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                  class="w-full rounded-lg border border-border px-3 py-2"
+                />
+              </div>
+              <button
+                type="submit"
+                class="w-full rounded-xl bg-accent py-2.5 font-semibold text-white hover:bg-accent-hover"
+              >
+                Sign in
+              </button>
+            </form>
+          </>
         )
       }
 
-      <form method="POST" class="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-sm">
-        <div>
-          <label for="email" class="mb-1 block text-sm font-medium">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            class="w-full rounded-lg border border-border px-3 py-2"
-          />
-        </div>
-        <div>
-          <label for="password" class="mb-1 block text-sm font-medium">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            required
-            class="w-full rounded-lg border border-border px-3 py-2"
-          />
-        </div>
-        <button type="submit" class="w-full rounded-xl bg-accent py-2.5 font-semibold text-white hover:bg-accent-hover">
-          Sign in
-        </button>
-      </form>
-
-      <p class="mt-4 text-center text-xs text-text-muted">
-        <a href="/" class="text-accent hover:underline">← Back to site</a>
-      </p>
+      {
+        !needsSetup && (
+          <p class="mt-4 text-center text-xs text-text-muted">
+            <a href="/" class="text-accent hover:underline">← Back to site</a>
+          </p>
+        )
+      }
     </div>
   </body>
 </html>

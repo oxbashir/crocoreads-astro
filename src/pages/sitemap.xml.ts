@@ -1,12 +1,12 @@
+---
 import type { APIRoute } from 'astro';
-import { createSupabaseServerClient } from '../lib/supabase/server';
-import { getPublishedArticles } from '../lib/articles';
+import { getPublishedArticles, getSupabase } from '../lib/article-service';
 import { SITE } from '../config/site';
 
 export const prerender = false;
 
-export const GET: APIRoute = async ({ cookies }) => {
-  const supabase = createSupabaseServerClient(cookies);
+export const GET: APIRoute = async (context) => {
+  const supabase = await getSupabase(context);
   const articles = await getPublishedArticles(supabase);
 
   const staticPages = ['', 'blog', 'about', 'contact', 'privacy', 'terms'];

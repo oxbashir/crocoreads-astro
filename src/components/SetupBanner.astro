@@ -1,0 +1,12 @@
+---
+import { isSupabaseConfigured } from '../lib/supabase/config';
+---
+
+{
+  !isSupabaseConfigured() && (
+    <div class="border-b border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-900">
+      Running in <strong>local mode</strong> — showing Markdown articles. Copy <code class="rounded bg-amber-100 px-1">.env.example</code>{' '}
+      to <code class="rounded bg-amber-100 px-1">.env</code> and add Supabase keys to enable the admin dashboard.
+    </div>
+  )
+}

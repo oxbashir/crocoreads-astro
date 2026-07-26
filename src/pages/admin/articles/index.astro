@@ -1,12 +1,13 @@
 ---
 import AdminLayout from '../../../layouts/AdminLayout.astro';
-import { createSupabaseServerClient } from '../../../lib/supabase/server';
-import { getAllArticles } from '../../../lib/articles';
+import { getAllArticles, getSupabase } from '../../../lib/article-service';
 import { formatDate } from '../../../utils/formatDate';
 
 export const prerender = false;
 
-const supabase = createSupabaseServerClient(Astro.cookies);
+const supabase = await getSupabase(Astro);
+if (!supabase) return Astro.redirect('/admin/login?setup=1');
+
 const articles = await getAllArticles(supabase);
 ---
 

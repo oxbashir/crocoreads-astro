@@ -1,19 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import { createSupabaseServerClient } from '../lib/supabase/server';
-import { getPublishedArticles } from '../lib/articles';
+import SetupBanner from '../components/SetupBanner.astro';
+import { getPublishedArticles, getSupabase } from '../lib/article-service';
+import { isSupabaseConfigured } from '../lib/supabase/config';
 import { SITE } from '../config/site';
 
 export const prerender = false;
 
-const supabase = createSupabaseServerClient(Astro.cookies);
+const supabase = await getSupabase(Astro);
 const posts = await getPublishedArticles(supabase);
 const featured = posts.find((post) => post.featured) ?? posts[0];
 const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
 ---
 
 <BaseLayout title={`${SITE.name} — ${SITE.tagline}`} description={SITE.description}>
+  {!isSupabaseConfigured() && <SetupBanner />}
+
   <section class="border-b border-border bg-gradient-to-b from-white to-background">
     <div class="mx-auto max-w-6xl px-4 py-16 text-center sm:py-20">
       <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">Welcome to {SITE.name}</p>
@@ -69,17 +72,6 @@ const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
             <PostCard article={article} />
           ))}
         </div>
-      </section>
-    )
-  }
-
-  {
-    posts.length === 0 && (
-      <section class="mx-auto max-w-6xl px-4 pb-16 text-center">
-        <p class="text-text-muted">
-          Articles coming soon. Admins can publish at{' '}
-          <a href="/admin/login" class="text-accent hover:underline">/admin/login</a>.
-        </p>
       </section>
     )
   }

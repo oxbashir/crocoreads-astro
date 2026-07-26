@@ -1,8 +1,14 @@
 ---
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import ArticleForm from '../../../components/admin/ArticleForm.astro';
-import { createSupabaseServerClient } from '../../../lib/supabase/server';
-import { deleteArticle, getArticleById, parsePubDate, slugify, updateArticle } from '../../../lib/articles';
+import {
+  deleteArticle,
+  getArticleById,
+  getSupabase,
+  parsePubDate,
+  slugify,
+  updateArticle,
+} from '../../../lib/article-service';
 import { parseTags } from '../../../lib/markdown';
 
 export const prerender = false;
@@ -10,7 +16,9 @@ export const prerender = false;
 const { id } = Astro.params;
 if (!id) return Astro.redirect('/admin/articles');
 
-const supabase = createSupabaseServerClient(Astro.cookies);
+const supabase = await getSupabase(Astro);
+if (!supabase) return Astro.redirect('/admin/login?setup=1');
+
 const article = await getArticleById(supabase, id);
 
 if (!article) return Astro.redirect('/admin/articles');
