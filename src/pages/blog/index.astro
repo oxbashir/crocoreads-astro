@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 import SetupBanner from '../../components/SetupBanner.astro';
 import { getPublishedArticles, getSupabase } from '../../lib/article-service';
-import { isSupabaseConfigured } from '../../lib/supabase/config';
 import { SITE } from '../../config/site';
 
 export const prerender = false;
@@ -12,6 +11,7 @@ const tag = Astro.url.searchParams.get('tag');
 const supabase = await getSupabase(Astro);
 const posts = await getPublishedArticles(supabase, tag);
 const allTags = [...new Set(posts.flatMap((post) => post.tags))].sort();
+const isProduction = import.meta.env.PROD;
 
 const pageTitle = tag ? `Articles tagged "${tag}"` : 'Articles';
 ---
@@ -20,7 +20,7 @@ const pageTitle = tag ? `Articles tagged "${tag}"` : 'Articles';
   title={`${pageTitle} | ${SITE.name}`}
   description="Browse practical guides on web development, productivity, and modern technology."
 >
-  {!isSupabaseConfigured() && <SetupBanner configured={false} />}
+  {!supabase && <SetupBanner production={isProduction} />}
 
   <div class="mx-auto max-w-6xl px-4 py-12">
     <header class="mb-10 max-w-2xl">

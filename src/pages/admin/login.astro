@@ -57,12 +57,16 @@ if (cookieError) {
             <p class="font-semibold">Supabase not configured</p>
             <ol class="mt-3 list-decimal space-y-2 pl-5">
               <li>
-                Copy <code class="rounded bg-amber-100 px-1">.env.example</code> to{' '}
-                <code class="rounded bg-amber-100 px-1">.env</code>
+                <strong>Local:</strong> copy <code class="rounded bg-amber-100 px-1">.env.example</code> to{' '}
+                <code class="rounded bg-amber-100 px-1">.env</code> and add your Supabase keys
               </li>
-              <li>Add your Supabase URL and anon key</li>
+              <li>
+                <strong>Production:</strong> add <code class="rounded bg-amber-100 px-1">PUBLIC_SUPABASE_URL</code> and{' '}
+                <code class="rounded bg-amber-100 px-1">PUBLIC_SUPABASE_ANON_KEY</code> in Cloudflare Pages → Settings →
+                Environment variables, then redeploy
+              </li>
               <li>Run <code class="rounded bg-amber-100 px-1">supabase/schema.sql</code> in Supabase SQL Editor</li>
-              <li>Restart the dev server</li>
+              <li>Run <code class="rounded bg-amber-100 px-1">npm run seed</code> to import articles</li>
             </ol>
             <a href="/" class="mt-4 inline-block text-accent hover:underline">
               ← Back to site (works without Supabase)

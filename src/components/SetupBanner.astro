@@ -1,19 +1,28 @@
 ---
 interface Props {
-  configured?: boolean;
+  production?: boolean;
 }
 
-const { configured = false } = Astro.props;
+const { production = false } = Astro.props;
 ---
 
 {
-  !configured && (
+  (
     <div class="border-b border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-900">
-      Running in <strong>local mode</strong> — showing Markdown articles. Add{' '}
-      <code class="rounded bg-amber-100 px-1">PUBLIC_SUPABASE_URL</code> and{' '}
-      <code class="rounded bg-amber-100 px-1">PUBLIC_SUPABASE_ANON_KEY</code> to{' '}
-      <code class="rounded bg-amber-100 px-1">.env</code> (local) or Cloudflare Pages env vars, then run{' '}
-      <code class="rounded bg-amber-100 px-1">npm run seed</code>.
+      {production ? (
+        <>
+          Articles are loading from Markdown files. Add <code class="rounded bg-amber-100 px-1">PUBLIC_SUPABASE_URL</code>{' '}
+          and <code class="rounded bg-amber-100 px-1">PUBLIC_SUPABASE_ANON_KEY</code> in{' '}
+          <strong>Cloudflare Pages → Settings → Environment variables</strong>, then redeploy.
+        </>
+      ) : (
+        <>
+          Running in <strong>local mode</strong> — showing Markdown articles. Copy{' '}
+          <code class="rounded bg-amber-100 px-1">.env.example</code> to{' '}
+          <code class="rounded bg-amber-100 px-1">.env</code>, add your Supabase keys, then run{' '}
+          <code class="rounded bg-amber-100 px-1">npm run seed</code>.
+        </>
+      )}
     </div>
   )
 }

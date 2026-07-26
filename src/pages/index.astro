@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 import SetupBanner from '../components/SetupBanner.astro';
 import { getPublishedArticles, getSupabase } from '../lib/article-service';
-import { isSupabaseConfigured } from '../lib/supabase/config';
 import { SITE } from '../config/site';
 
 export const prerender = false;
@@ -12,10 +11,11 @@ const supabase = await getSupabase(Astro);
 const posts = await getPublishedArticles(supabase);
 const featured = posts.find((post) => post.featured) ?? posts[0];
 const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
+const isProduction = import.meta.env.PROD;
 ---
 
 <BaseLayout title={`${SITE.name} — ${SITE.tagline}`} description={SITE.description}>
-  {!isSupabaseConfigured() && <SetupBanner configured={false} />}
+  {!supabase && <SetupBanner production={isProduction} />}
 
   <section class="border-b border-border bg-gradient-to-b from-white to-background">
     <div class="mx-auto max-w-6xl px-4 py-16 text-center sm:py-20">
