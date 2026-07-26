@@ -3,8 +3,8 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import type { AstroCookies } from 'astro';
 import { resolveSupabaseEnv } from './env';
 
-export function createSupabaseServerClient(cookies: AstroCookies, locals?: App.Locals) {
-  const { url: supabaseUrl, anonKey: supabaseAnonKey } = resolveSupabaseEnv(locals);
+export function createSupabaseServerClient(cookies: AstroCookies) {
+  const { url: supabaseUrl, anonKey: supabaseAnonKey } = resolveSupabaseEnv();
 
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error(
@@ -27,8 +27,8 @@ export function createSupabaseServerClient(cookies: AstroCookies, locals?: App.L
   });
 }
 
-export function createSupabaseAdminClient(locals?: App.Locals) {
-  const { url: supabaseUrl, serviceRoleKey } = resolveSupabaseEnv(locals);
+export function createSupabaseAdminClient() {
+  const { url: supabaseUrl, serviceRoleKey } = resolveSupabaseEnv();
 
   if (!supabaseUrl || !serviceRoleKey) {
     throw new Error('Missing PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY for admin operations.');

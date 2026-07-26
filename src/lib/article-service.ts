@@ -20,10 +20,9 @@ import { isSupabaseConfigured } from './supabase/config';
 
 export async function getSupabase(Astro: {
   cookies: AstroCookies;
-  locals?: App.Locals;
 }): Promise<SupabaseClient | null> {
-  if (!isSupabaseConfigured(Astro.locals)) return null;
-  return createSupabaseServerClient(Astro.cookies, Astro.locals);
+  if (!isSupabaseConfigured()) return null;
+  return createSupabaseServerClient(Astro.cookies);
 }
 
 export async function getPublishedArticles(

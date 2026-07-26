@@ -1,20 +1,19 @@
-type EnvRecord = Record<string, string | undefined>;
+import { env as cloudflareEnv } from 'cloudflare:workers';
 
-function readRuntimeEnv(locals?: App.Locals): EnvRecord | undefined {
-  const runtime = locals?.runtime?.env;
-  if (!runtime || typeof runtime !== 'object') return undefined;
-  return runtime as EnvRecord;
-}
+type EnvRecord = Record<string, unknown>;
 
 function readImportMetaEnv(key: string): string | undefined {
   const value = import.meta.env[key];
   return typeof value === 'string' && value.length > 0 ? value : undefined;
 }
 
-function readEnv(key: string, locals?: App.Locals): string | undefined {
-  const runtimeValue = readRuntimeEnv(locals)?.[key];
-  if (runtimeValue) return runtimeValue;
-  return readImportMetaEnv(key);
+function readCloudflareEnv(key: string): string | undefined {
+  const value = (cloudflareEnv as EnvRecord)[key];
+  return typeof value === 'string' && value.length > 0 ? value : undefined;
+}
+
+function readEnv(key: string): string | undefined {
+  return readCloudflareEnv(key) ?? readImportMetaEnv(key);
 }
 
 export interface SupabaseEnv {
@@ -23,20 +22,18 @@ export interface SupabaseEnv {
   serviceRoleKey: string | undefined;
 }
 
-export function resolveSupabaseEnv(locals?: App.Locals): SupabaseEnv {
+export function resolveSupabaseEnv(): SupabaseEnv {
   return {
-    url:
-      readEnv('PUBLIC_SUPABASE_URL', locals) ??
-      readEnv('SUPABASE_URL', locals),
+    url: readEnv('PUBLIC_SUPABASE_URL') ?? readEnv('SUPABASE_URL'),
     anonKey:
-      readEnv('PUBLIC_SUPABASE_ANON_KEY', locals) ??
-      readEnv('SUPABASE_ANON_KEY', locals) ??
-      readEnv('SUPABASE_KEY', locals),
-    serviceRoleKey: readEnv('SUPABASE_SERVICE_ROLE_KEY', locals),
+      readEnv('PUBLIC_SUPABASE_ANON_KEY') ??
+      readEnv('SUPABASE_ANON_KEY') ??
+      readEnv('SUPABASE_KEY'),
+    serviceRoleKey: readEnv('SUPABASE_SERVICE_ROLE_KEY'),
   };
 }
 
-export function isSupabaseConfigured(locals?: App.Locals): boolean {
-  const { url, anonKey } = resolveSupabaseEnv(locals);
+export function isSupabaseConfigured(): boolean {
+  const { url, anonKey } = resolveSupabaseEnv();
   return Boolean(url && anonKey);
 }
