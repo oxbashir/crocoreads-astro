@@ -5,7 +5,7 @@ export const SITE = {
   author: 'Osama',
   authorBio:
     'Software engineer who writes about web development, productivity, and building things on the internet.',
-  email: 'hello@crocoreads.com',
+  email: 'crocoreads@gmail.com',
   description:
     'CrocoReads publishes practical guides on web development, productivity tools, and modern tech — clear, actionable articles for builders and lifelong learners.',
   locale: 'en-US',
