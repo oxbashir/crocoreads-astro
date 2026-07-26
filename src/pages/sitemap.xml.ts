@@ -1,4 +1,3 @@
----
 import type { APIRoute } from 'astro';
 import { getPublishedArticles, getSupabase } from '../lib/article-service';
 import { SITE } from '../config/site';
