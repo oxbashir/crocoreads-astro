@@ -1,17 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
-import { getCollection } from 'astro:content';
+import { createSupabaseServerClient } from '../../lib/supabase/server';
+import { getPublishedArticles } from '../../lib/articles';
 import { SITE } from '../../config/site';
 
+export const prerender = false;
+
 const tag = Astro.url.searchParams.get('tag');
+const supabase = createSupabaseServerClient(Astro.cookies);
 
-const posts = (await getCollection('blog'))
-  .filter((post) => !post.data.draft)
-  .filter((post) => !tag || post.data.tags.includes(tag))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+let posts = await getPublishedArticles(supabase, tag);
+let loadError = '';
 
 const pageTitle = tag ? `Articles tagged "${tag}"` : 'Articles';
 ---
@@ -31,45 +31,51 @@ const pageTitle = tag ? `Articles tagged "${tag}"` : 'Articles';
     </header>
 
     {
-      allTags.length > 0 && (
-        <div class="mb-10 flex flex-wrap gap-2">
-          <a
-            href="/blog"
-            class:list={[
-              'rounded-full px-3 py-1 text-sm font-medium transition',
-              !tag ? 'bg-accent text-white' : 'bg-slate-100 text-text-muted hover:bg-slate-200',
-            ]}
-          >
-            All
-          </a>
-          {allTags.map((item) => (
-            <a
-              href={`/blog?tag=${encodeURIComponent(item)}`}
-              class:list={[
-                'rounded-full px-3 py-1 text-sm font-medium transition',
-                tag === item
-                  ? 'bg-accent text-white'
-                  : 'bg-slate-100 text-text-muted hover:bg-slate-200',
-              ]}
-            >
-              {item}
-            </a>
-          ))}
-        </div>
+      loadError && (
+        <p class="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          {loadError}
+        </p>
       )
     }
 
     {
       posts.length > 0 ? (
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
-            <div class="relative">
-              <PostCard post={post} />
-            </div>
-          ))}
-        </div>
+        <>
+          <div class="mb-10 flex flex-wrap gap-2">
+            <a
+              href="/blog"
+              class:list={[
+                'rounded-full px-3 py-1 text-sm font-medium transition',
+                !tag ? 'bg-accent text-white' : 'bg-slate-100 text-text-muted hover:bg-slate-200',
+              ]}
+            >
+              All
+            </a>
+            {[...new Set(posts.flatMap((p) => p.tags))].sort().map((item) => (
+              <a
+                href={`/blog?tag=${encodeURIComponent(item)}`}
+                class:list={[
+                  'rounded-full px-3 py-1 text-sm font-medium transition',
+                  tag === item
+                    ? 'bg-accent text-white'
+                    : 'bg-slate-100 text-text-muted hover:bg-slate-200',
+                ]}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((article) => (
+              <PostCard article={article} />
+            ))}
+          </div>
+        </>
       ) : (
-        <p class="text-text-muted">No articles found. Check back soon.</p>
+        <p class="text-text-muted">
+          No articles published yet. Sign in to the <a href="/admin/login" class="text-accent hover:underline">admin</a>{' '}
+          to create content.
+        </p>
       )
     }
   </div>

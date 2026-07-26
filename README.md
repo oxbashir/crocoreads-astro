@@ -1,145 +1,125 @@
 # CrocoReads — AdSense-Ready Publishing Site
 
-A modern, light-themed publishing website built with [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com), and Markdown content. Designed for free hosting on Cloudflare Pages and Google AdSense monetization.
+A modern publishing website for [crocoreads.com](https://crocoreads.com), built with **Astro**, **Tailwind CSS**, and **Supabase** (auth + database). Deploy free on Cloudflare Pages.
 
 ## Features
 
-- Fast static site with zero JavaScript on article pages by default
-- Markdown content collections with typed frontmatter
-- Light theme UI with responsive navigation
-- AdSense ad slot placeholders (header, in-article, sidebar, footer)
-- SEO: sitemap, robots.txt, Open Graph, JSON-LD structured data
-- Compliance pages: About, Contact, Privacy Policy, Terms of Service
-- 5 starter articles on web development and productivity
+- **Supabase backend** — Postgres database, auth, article CRUD
+- **Admin dashboard** at `/admin` — sign in, create, edit, delete articles
+- Light theme UI with CrocoReads branding
+- AdSense ad slot placeholders
+- SEO: dynamic sitemap, robots.txt, Open Graph, JSON-LD
+- Compliance pages: About, Contact, Privacy, Terms
 
 ## Quick start
 
+### 1. Supabase setup
+
+1. Create a free project at [supabase.com](https://supabase.com)
+2. Open **SQL Editor** and run the full script in [`supabase/schema.sql`](supabase/schema.sql)
+3. Go to **Project Settings → API** and copy:
+   - Project URL
+   - `anon` public key
+   - `service_role` secret key (seed script only — never expose in browser)
+
+### 2. Environment variables
+
+```bash
+cp .env.example .env
+```
+
+Fill in `.env`:
+
+```env
+PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+PUBLIC_SUPABASE_ANON_KEY=eyJ...
+SUPABASE_SERVICE_ROLE_KEY=eyJ...
+```
+
+### 3. Create admin user
+
+1. Supabase Dashboard → **Authentication → Users → Add user**
+2. Set email + password
+3. In **SQL Editor**, promote to admin:
+
+```sql
+update public.profiles set role = 'admin' where email = 'your@email.com';
+```
+
+### 4. Install and seed
+
 ```bash
 npm install
+npm run seed    # imports Markdown articles from src/content/blog/
 npm run dev
 ```
 
-Open [http://localhost:4321](http://localhost:4321).
+- **Site:** [http://localhost:4321](http://localhost:4321)
+- **Admin:** [http://localhost:4321/admin/login](http://localhost:4321/admin/login)
+
+## Admin dashboard
+
+| URL | Purpose |
+|-----|---------|
+| `/admin/login` | Sign in |
+| `/admin/articles` | List all articles (drafts + published) |
+| `/admin/articles/new` | Create article |
+| `/admin/articles/[id]` | Edit or delete article |
+
+Articles are stored in Supabase. Changes appear on the live site immediately — no rebuild required.
 
 ## Project structure
 
 ```
 src/
-├── config/site.ts       # Site name, URL, AdSense settings
-├── content/blog/        # Markdown articles
-├── components/          # Header, Footer, AdSlot, PostCard, TOC
-├── layouts/             # BaseLayout, PageLayout, PostLayout
-└── pages/               # Routes (home, blog, about, contact, etc.)
-public/
-├── ads.txt              # AdSense authorization (update after approval)
-└── robots.txt
+├── lib/
+│   ├── supabase/server.ts   # Supabase client (cookies / SSR)
+│   ├── articles.ts          # Article queries & CRUD
+│   └── markdown.ts          # Markdown → HTML
+├── pages/
+│   ├── admin/               # Protected admin routes
+│   ├── blog/                # Public blog (reads Supabase)
+│   └── sitemap.xml.ts       # Dynamic sitemap
+supabase/schema.sql            # Database schema + RLS policies
+scripts/seed.mjs               # Import Markdown → Supabase
 ```
+
+## Deploy to Cloudflare Pages
+
+1. Push to GitHub
+2. Cloudflare Pages → connect repo
+3. Build settings:
+   - **Build command:** `npm run build`
+   - **Output directory:** `dist`
+   - **Node.js version:** 22
+4. Add environment variables in **Pages → Settings → Environment variables**:
+   - `PUBLIC_SUPABASE_URL`
+   - `PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY` (optional, for seeding in CI)
+
+> **Note:** This project uses SSR (`output: 'server'`) with the Cloudflare adapter. Cloudflare Pages supports this automatically.
 
 ## Configuration
 
-Edit [`src/config/site.ts`](src/config/site.ts):
+Edit [`src/config/site.ts`](src/config/site.ts) for site name, URL, AdSense IDs, and contact email.
 
-- `SITE.url` — your production domain
-- `SITE.name`, `SITE.email`, `SITE.author` — site identity
-- `ADSENSE.enabled` — set to `true` after AdSense approval
-- `ADSENSE.clientId` — your `ca-pub-XXXXXXXXXXXXXXXX` ID
-- `ADSENSE.slots` — ad unit slot IDs from AdSense dashboard
+## AdSense
 
-Update [`astro.config.mjs`](astro.config.mjs) `site` to match your domain.
-
-Update [`public/ads.txt`](public/ads.txt):
-
-```
-google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
-```
-
-Update [`public/robots.txt`](public/robots.txt) sitemap URL to your domain.
-
-## Writing articles
-
-Create a file in `src/content/blog/`:
-
-```markdown
----
-title: "Article Title"
-description: "SEO description under 160 characters."
-pubDate: 2026-07-26
-tags: ["Tag1", "Tag2"]
-draft: false
----
-
-Your content here.
-```
-
-Set `draft: true` to exclude from production builds.
-
-## Deploy to Cloudflare Pages (free)
-
-1. Push this repo to GitHub
-2. In [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-3. Select your repository
-4. Build settings:
-   - **Framework preset:** Astro
-   - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-   - **Node.js version:** 22
-5. Deploy
-6. Add your custom domain under **Custom domains**
-7. Point DNS to Cloudflare (or use Cloudflare as your registrar)
-
-Every push to `main` triggers a new deployment automatically.
-
-## Google AdSense setup
-
-### Before applying
-
-- [ ] Custom domain with HTTPS (required — free subdomains are rarely approved)
-- [ ] About, Contact, Privacy Policy, and Terms pages published
-- [ ] At least 15–20 quality original articles (5 starters included — add more)
-- [ ] Site live for a few weeks with some organic traffic
-- [ ] Google Search Console verified with sitemap submitted
-
-### After approval
-
-1. Set `ADSENSE.enabled = true` in `src/config/site.ts`
-2. Add your publisher ID and slot IDs
-3. Update `public/ads.txt` with your publisher ID
-4. Rebuild and deploy
-5. Verify ads render correctly on mobile and desktop
-
-### Ad placement
-
-Ads are placed in non-intrusive locations:
-
-- Header banner (article pages)
-- In-article rectangle (after content)
-- Sidebar (desktop, sticky)
-- Footer (all pages)
-
-During development, placeholder boxes appear instead of real ads.
-
-## Contact form
-
-The contact page uses [Formspree](https://formspree.io). Create a free form and replace `YOUR_FORM_ID` in [`src/pages/contact.astro`](src/pages/contact.astro), or switch to a `mailto:` link.
+See previous README sections for AdSense setup. Enable ads in `src/config/site.ts` after approval.
 
 ## Commands
 
-| Command         | Action                              |
-| --------------- | ----------------------------------- |
-| `npm run dev`   | Start dev server at localhost:4321  |
-| `npm run build` | Build production site to `./dist/`  |
-| `npm run preview` | Preview production build locally |
+| Command | Action |
+|---------|--------|
+| `npm run dev` | Local dev server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build |
+| `npm run seed` | Import Markdown articles into Supabase |
 
 ## Cost
 
 | Item | Cost |
 |------|------|
-| Cloudflare Pages hosting | Free |
-| Backend / database | None needed |
-| SSL | Free |
-| Domain | ~$10–15/year |
-| AdSense | Free |
-
-## License
-
-Content and code are yours to modify for your publishing site.
+| Cloudflare Pages | Free |
+| Supabase (free tier) | Free |
+| Domain (Namecheap) | ~$10–15/year |

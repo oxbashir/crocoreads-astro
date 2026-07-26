@@ -1,0 +1,104 @@
+---
+import type { Article } from '../../types/article';
+
+interface Props {
+  article?: Article;
+  submitLabel: string;
+  pubDateValue?: string;
+}
+
+const { article, submitLabel, pubDateValue = new Date().toISOString().slice(0, 10) } = Astro.props;
+---
+
+<form method="POST" class="space-y-5 rounded-2xl border border-border bg-surface p-6">
+  <div class="grid gap-5 md:grid-cols-2">
+    <div class="md:col-span-2">
+      <label for="title" class="mb-1 block text-sm font-medium">Title</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        required
+        value={article?.title ?? ''}
+        class="w-full rounded-lg border border-border px-3 py-2"
+      />
+    </div>
+    <div>
+      <label for="slug" class="mb-1 block text-sm font-medium">Slug</label>
+      <input
+        type="text"
+        id="slug"
+        name="slug"
+        value={article?.slug ?? ''}
+        placeholder="auto-from-title"
+        class="w-full rounded-lg border border-border px-3 py-2"
+      />
+    </div>
+    <div>
+      <label for="author_name" class="mb-1 block text-sm font-medium">Author name</label>
+      <input
+        type="text"
+        id="author_name"
+        name="author_name"
+        required
+        value={article?.author_name ?? 'Osama'}
+        class="w-full rounded-lg border border-border px-3 py-2"
+      />
+    </div>
+    <div class="md:col-span-2">
+      <label for="description" class="mb-1 block text-sm font-medium">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        required
+        rows="2"
+        class="w-full rounded-lg border border-border px-3 py-2">{article?.description ?? ''}</textarea
+      >
+    </div>
+    <div>
+      <label for="tags" class="mb-1 block text-sm font-medium">Tags (comma-separated)</label>
+      <input
+        type="text"
+        id="tags"
+        name="tags"
+        value={article?.tags?.join(', ') ?? ''}
+        class="w-full rounded-lg border border-border px-3 py-2"
+      />
+    </div>
+    <div>
+      <label for="pub_date" class="mb-1 block text-sm font-medium">Publish date</label>
+      <input
+        type="date"
+        id="pub_date"
+        name="pub_date"
+        required
+        value={pubDateValue}
+        class="w-full rounded-lg border border-border px-3 py-2"
+      />
+    </div>
+    <div class="md:col-span-2">
+      <label for="content" class="mb-1 block text-sm font-medium">Content (Markdown)</label>
+      <textarea
+        id="content"
+        name="content"
+        required
+        rows="18"
+        class="w-full rounded-lg border border-border px-3 py-2 font-mono text-sm"
+        >{article?.content ?? ''}</textarea
+      >
+    </div>
+    <div class="flex flex-wrap gap-6 md:col-span-2">
+      <label class="flex items-center gap-2 text-sm">
+        <input type="checkbox" name="draft" checked={article?.draft ?? false} class="rounded" />
+        Draft (hidden from public site)
+      </label>
+      <label class="flex items-center gap-2 text-sm">
+        <input type="checkbox" name="featured" checked={article?.featured ?? false} class="rounded" />
+        Featured on homepage
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="rounded-xl bg-accent px-6 py-2.5 font-semibold text-white hover:bg-accent-hover">
+    {submitLabel}
+  </button>
+</form>

@@ -1,0 +1,84 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { createSupabaseServerClient } from '../../../lib/supabase/server';
+import { getAllArticles } from '../../../lib/articles';
+import { formatDate } from '../../../utils/formatDate';
+
+export const prerender = false;
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const articles = await getAllArticles(supabase);
+---
+
+<AdminLayout title="Articles">
+  <div class="mb-6 flex items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-bold">Articles</h1>
+      <p class="text-sm text-text-muted">{articles.length} total</p>
+    </div>
+    <a
+      href="/admin/articles/new"
+      class="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accent-hover"
+    >
+      New article
+    </a>
+  </div>
+
+  {
+    articles.length === 0 ? (
+      <p class="rounded-xl border border-border bg-surface p-6 text-text-muted">
+        No articles yet. Create one or run <code class="rounded bg-slate-100 px-1">npm run seed</code> to import
+        Markdown posts.
+      </p>
+    ) : (
+      <div class="overflow-hidden rounded-xl border border-border bg-surface">
+        <table class="w-full text-left text-sm">
+          <thead class="border-b border-border bg-slate-50 text-text-muted">
+            <tr>
+              <th class="px-4 py-3 font-medium">Title</th>
+              <th class="px-4 py-3 font-medium">Status</th>
+              <th class="px-4 py-3 font-medium">Published</th>
+              <th class="px-4 py-3 font-medium">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {articles.map((article) => (
+              <tr class="border-b border-border last:border-0">
+                <td class="px-4 py-3">
+                  <p class="font-medium text-text">{article.title}</p>
+                  <p class="text-xs text-text-muted">/blog/{article.slug}</p>
+                </td>
+                <td class="px-4 py-3">
+                  {
+                    article.draft ? (
+                      <span class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
+                        Draft
+                      </span>
+                    ) : (
+                      <span class="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                        Published
+                      </span>
+                    )
+                  }
+                  {
+                    article.featured && (
+                      <span class="ml-1 rounded-full bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">
+                        Featured
+                      </span>
+                    )
+                  }
+                </td>
+                <td class="px-4 py-3 text-text-muted">{formatDate(new Date(article.pub_date))}</td>
+                <td class="px-4 py-3">
+                  <a href={`/admin/articles/${article.id}`} class="text-accent hover:underline">
+                    Edit
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+</AdminLayout>

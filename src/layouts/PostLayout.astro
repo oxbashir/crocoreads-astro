@@ -4,16 +4,19 @@ import AdSlot from '../components/AdSlot.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import { formatDate } from '../utils/formatDate';
 import { SITE, ADSENSE } from '../config/site';
-import type { CollectionEntry } from 'astro:content';
+import type { Article, Heading } from '../types/article';
 
 interface Props {
-  post: CollectionEntry<'blog'>;
+  article: Article;
   readingTime: number;
-  headings: { depth: number; slug: string; text: string }[];
+  headings: Heading[];
+  htmlContent: string;
 }
 
-const { post, readingTime, headings } = Astro.props;
-const { title, description, pubDate, updatedDate, author, tags } = post.data;
+const { article, readingTime, headings, htmlContent } = Astro.props;
+const { title, description, pub_date, updated_at, author_name, tags } = article;
+const pubDate = new Date(pub_date);
+const updatedDate = new Date(updated_at);
 
 const pageTitle = `${title} | ${SITE.name}`;
 ---
@@ -23,8 +26,8 @@ const pageTitle = `${title} | ${SITE.name}`;
   description={description}
   type="article"
   publishedTime={pubDate.toISOString()}
-  modifiedTime={(updatedDate ?? pubDate).toISOString()}
-  author={author}
+  modifiedTime={updatedDate.toISOString()}
+  author={author_name}
 >
   <article class="mx-auto max-w-6xl px-4 py-10">
     <div class="mb-8 max-w-3xl">
@@ -33,7 +36,7 @@ const pageTitle = `${title} | ${SITE.name}`;
         <span aria-hidden="true">·</span>
         <span>{readingTime} min read</span>
         <span aria-hidden="true">·</span>
-        <span>{author}</span>
+        <span>{author_name}</span>
       </div>
       <h1 class="text-3xl font-bold tracking-tight text-text sm:text-4xl lg:text-5xl">
         {title}
@@ -63,9 +66,7 @@ const pageTitle = `${title} | ${SITE.name}`;
 
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_240px]">
       <div class="min-w-0">
-        <div class="prose-content max-w-3xl">
-          <slot />
-        </div>
+        <div class="prose-content max-w-3xl" set:html={htmlContent} />
 
         <div class="mt-10 max-w-3xl">
           <AdSlot slotId={ADSENSE.slots.inArticle} format="rectangle" label="In-article ad" />

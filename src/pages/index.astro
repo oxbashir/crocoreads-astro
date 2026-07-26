@@ -1,14 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import { getCollection } from 'astro:content';
+import { createSupabaseServerClient } from '../lib/supabase/server';
+import { getPublishedArticles } from '../lib/articles';
 import { SITE } from '../config/site';
 
-const posts = (await getCollection('blog'))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+export const prerender = false;
 
-const featured = posts.find((post) => post.data.featured) ?? posts[0];
+const supabase = createSupabaseServerClient(Astro.cookies);
+const posts = await getPublishedArticles(supabase);
+const featured = posts.find((post) => post.featured) ?? posts[0];
 const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
 ---
 
@@ -42,15 +43,11 @@ const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
   {
     featured && (
       <section class="mx-auto max-w-6xl px-4 py-14">
-        <div class="mb-8 flex items-end justify-between gap-4">
-          <div>
-            <p class="text-sm font-semibold uppercase tracking-wide text-accent">Featured</p>
-            <h2 class="mt-1 text-2xl font-bold text-text">Start here</h2>
-          </div>
+        <div class="mb-8">
+          <p class="text-sm font-semibold uppercase tracking-wide text-accent">Featured</p>
+          <h2 class="mt-1 text-2xl font-bold text-text">Start here</h2>
         </div>
-        <div class="relative">
-          <PostCard post={featured} />
-        </div>
+        <PostCard article={featured} />
       </section>
     )
   }
@@ -68,12 +65,21 @@ const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 6);
           </a>
         </div>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {latest.map((post) => (
-            <div class="relative">
-              <PostCard post={post} />
-            </div>
+          {latest.map((article) => (
+            <PostCard article={article} />
           ))}
         </div>
+      </section>
+    )
+  }
+
+  {
+    posts.length === 0 && (
+      <section class="mx-auto max-w-6xl px-4 pb-16 text-center">
+        <p class="text-text-muted">
+          Articles coming soon. Admins can publish at{' '}
+          <a href="/admin/login" class="text-accent hover:underline">/admin/login</a>.
+        </p>
       </section>
     )
   }

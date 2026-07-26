@@ -1,6 +1,8 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import { SITE } from '../config/site';
+
+export const prerender = true;
 ---
 
 <PageLayout title="Contact" description={`Contact ${SITE.name} for questions, feedback, or partnership inquiries.`}>

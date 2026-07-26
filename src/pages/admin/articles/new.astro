@@ -1,0 +1,50 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import ArticleForm from '../../../components/admin/ArticleForm.astro';
+import { createSupabaseServerClient } from '../../../lib/supabase/server';
+import { createArticle, parsePubDate, slugify } from '../../../lib/articles';
+import { parseTags } from '../../../lib/markdown';
+
+export const prerender = false;
+
+let errorMessage = '';
+
+if (Astro.request.method === 'POST') {
+  const supabase = createSupabaseServerClient(Astro.cookies);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const formData = await Astro.request.formData();
+
+  const title = String(formData.get('title') ?? '');
+  const slug = String(formData.get('slug') ?? '') || slugify(title);
+
+  try {
+    const article = await createArticle(
+      supabase,
+      {
+        title,
+        slug,
+        description: String(formData.get('description') ?? ''),
+        content: String(formData.get('content') ?? ''),
+        author_name: String(formData.get('author_name') ?? 'Osama'),
+        tags: parseTags(String(formData.get('tags') ?? '')),
+        draft: formData.get('draft') === 'on',
+        featured: formData.get('featured') === 'on',
+        pub_date: parsePubDate(String(formData.get('pub_date') ?? new Date().toISOString().slice(0, 10))),
+      },
+      user?.id ?? null,
+    );
+
+    return Astro.redirect(`/admin/articles/${article.id}`);
+  } catch (error) {
+    errorMessage = error instanceof Error ? error.message : 'Failed to create article';
+  }
+}
+---
+
+<AdminLayout title="New article">
+  <h1 class="mb-6 text-2xl font-bold">New article</h1>
+  {errorMessage && <p class="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>}
+  <ArticleForm submitLabel="Create article" />
+</AdminLayout>

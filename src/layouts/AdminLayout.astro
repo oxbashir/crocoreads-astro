@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import { SITE } from '../config/site';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>{title} | Admin | {SITE.name}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen bg-background text-text antialiased">
+    <header class="border-b border-border bg-surface">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+        <a href="/admin/articles" class="flex items-center gap-3">
+          <img src="/logo.png" alt="" width="32" height="32" class="h-8 w-8 rounded-full" />
+          <span class="font-bold">{SITE.name} Admin</span>
+        </a>
+        <nav class="flex items-center gap-3 text-sm">
+          <a href="/" class="text-text-muted hover:text-accent" target="_blank">View site</a>
+          <form method="POST" action="/admin/logout">
+            <button type="submit" class="rounded-lg border border-border px-3 py-1.5 hover:bg-slate-50">
+              Sign out
+            </button>
+          </form>
+        </nav>
+      </div>
+    </header>
+    <main class="mx-auto max-w-6xl px-4 py-8">
+      <slot />
+    </main>
+  </body>
+</html>

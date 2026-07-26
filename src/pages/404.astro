@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
+
+export const prerender = false;
+---
+
+<BaseLayout title={`Page not found | ${SITE.name}`} description="The page you requested could not be found." noFooterAd>
+  <div class="mx-auto max-w-xl px-4 py-20 text-center">
+    <h1 class="text-4xl font-bold text-text">404</h1>
+    <p class="mt-4 text-text-muted">This page does not exist or the article was removed.</p>
+    <a href="/" class="mt-6 inline-block text-accent hover:underline">← Back to homepage</a>
+  </div>
+</BaseLayout>

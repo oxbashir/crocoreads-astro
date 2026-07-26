@@ -1,0 +1,23 @@
+---
+import PostLayout from '../../layouts/PostLayout.astro';
+import { createSupabaseServerClient } from '../../lib/supabase/server';
+import { getArticleBySlug } from '../../lib/articles';
+import { extractHeadings, renderMarkdown } from '../../lib/markdown';
+import { getReadingTime } from '../../utils/readingTime';
+
+export const prerender = false;
+
+const slug = Astro.params.slug;
+if (!slug) return Astro.redirect('/blog');
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const article = await getArticleBySlug(supabase, slug);
+
+if (!article) return Astro.redirect('/404');
+
+const readingTime = getReadingTime(article.content);
+const headings = extractHeadings(article.content);
+const htmlContent = renderMarkdown(article.content);
+---
+
+<PostLayout article={article} readingTime={readingTime} headings={headings} htmlContent={htmlContent} />

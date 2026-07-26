@@ -1,0 +1,88 @@
+---
+import '../../styles/global.css';
+import { createSupabaseServerClient } from '../../lib/supabase/server';
+import { SITE } from '../../config/site';
+
+export const prerender = false;
+
+if (Astro.request.method === 'POST') {
+  const supabase = createSupabaseServerClient(Astro.cookies);
+  const formData = await Astro.request.formData();
+  const email = String(formData.get('email') ?? '');
+  const password = String(formData.get('password') ?? '');
+
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    Astro.cookies.set('admin_login_error', error.message, { path: '/', maxAge: 10 });
+  } else {
+    return Astro.redirect('/admin/articles');
+  }
+}
+
+const errorMessage = Astro.cookies.get('admin_login_error')?.value;
+if (errorMessage) {
+  Astro.cookies.delete('admin_login_error', { path: '/' });
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>Sign in | {SITE.name}</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="flex min-h-screen items-center justify-center bg-background px-4 text-text">
+    <div class="w-full max-w-md">
+      <div class="mb-8 text-center">
+        <img src="/logo.png" alt="" width="64" height="64" class="mx-auto h-16 w-16 rounded-full" />
+        <h1 class="mt-4 text-2xl font-bold">{SITE.name} Admin</h1>
+        <p class="mt-1 text-sm text-text-muted">Sign in to manage articles</p>
+      </div>
+
+      {
+        errorMessage && (
+          <p class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {errorMessage}
+          </p>
+        )
+      }
+
+      <form method="POST" class="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-sm">
+        <div>
+          <label for="email" class="mb-1 block text-sm font-medium">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full rounded-lg border border-border px-3 py-2"
+          />
+        </div>
+        <div>
+          <label for="password" class="mb-1 block text-sm font-medium">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            class="w-full rounded-lg border border-border px-3 py-2"
+          />
+        </div>
+        <button type="submit" class="w-full rounded-xl bg-accent py-2.5 font-semibold text-white hover:bg-accent-hover">
+          Sign in
+        </button>
+      </form>
+
+      <p class="mt-4 text-center text-xs text-text-muted">
+        <a href="/" class="text-accent hover:underline">← Back to site</a>
+      </p>
+    </div>
+  </body>
+</html>

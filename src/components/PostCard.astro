@@ -1,13 +1,14 @@
 ---
 import { formatDate } from '../utils/formatDate';
-import type { CollectionEntry } from 'astro:content';
+import type { Article } from '../types/article';
 
 interface Props {
-  post: CollectionEntry<'blog'>;
+  article: Article;
 }
 
-const { post } = Astro.props;
-const { title, description, pubDate, tags } = post.data;
+const { article } = Astro.props;
+const { title, description, pub_date, tags, slug } = article;
+const pubDate = new Date(pub_date);
 ---
 
 <article class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
@@ -24,7 +25,7 @@ const { title, description, pubDate, tags } = post.data;
       }
     </div>
     <h2 class="text-xl font-bold text-text group-hover:text-accent">
-      <a href={`/blog/${post.id}`} class="before:absolute before:inset-0">
+      <a href={`/blog/${slug}`} class="before:absolute before:inset-0">
         {title}
       </a>
     </h2>

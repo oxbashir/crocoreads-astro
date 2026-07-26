@@ -1,0 +1,85 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import ArticleForm from '../../../components/admin/ArticleForm.astro';
+import { createSupabaseServerClient } from '../../../lib/supabase/server';
+import { deleteArticle, getArticleById, parsePubDate, slugify, updateArticle } from '../../../lib/articles';
+import { parseTags } from '../../../lib/markdown';
+
+export const prerender = false;
+
+const { id } = Astro.params;
+if (!id) return Astro.redirect('/admin/articles');
+
+const supabase = createSupabaseServerClient(Astro.cookies);
+const article = await getArticleById(supabase, id);
+
+if (!article) return Astro.redirect('/admin/articles');
+
+let errorMessage = '';
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const action = String(formData.get('_action') ?? 'save');
+
+  if (action === 'delete') {
+    await deleteArticle(supabase, id);
+    return Astro.redirect('/admin/articles');
+  }
+
+  const title = String(formData.get('title') ?? '');
+  const slug = String(formData.get('slug') ?? '') || slugify(title);
+
+  try {
+    await updateArticle(supabase, id, {
+      title,
+      slug,
+      description: String(formData.get('description') ?? ''),
+      content: String(formData.get('content') ?? ''),
+      author_name: String(formData.get('author_name') ?? 'Osama'),
+      tags: parseTags(String(formData.get('tags') ?? '')),
+      draft: formData.get('draft') === 'on',
+      featured: formData.get('featured') === 'on',
+      pub_date: parsePubDate(String(formData.get('pub_date') ?? article.pub_date.slice(0, 10))),
+    });
+
+    return Astro.redirect(`/admin/articles/${id}?saved=1`);
+  } catch (error) {
+    errorMessage = error instanceof Error ? error.message : 'Failed to update article';
+  }
+}
+
+const saved = Astro.url.searchParams.get('saved') === '1';
+---
+
+<AdminLayout title={`Edit: ${article.title}`}>
+  <div class="mb-6 flex items-center justify-between gap-4">
+    <h1 class="text-2xl font-bold">Edit article</h1>
+    {
+      !article.draft && (
+        <a href={`/blog/${article.slug}`} class="text-sm text-accent hover:underline" target="_blank">
+          View live →
+        </a>
+      )
+    }
+  </div>
+
+  {saved && <p class="mb-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">Article saved.</p>}
+  {errorMessage && <p class="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>}
+
+  <ArticleForm
+    submitLabel="Save changes"
+    article={article}
+    pubDateValue={article.pub_date.slice(0, 10)}
+  />
+
+  <form method="POST" class="mt-8 border-t border-border pt-6">
+    <input type="hidden" name="_action" value="delete" />
+    <button
+      type="submit"
+      class="rounded-lg border border-red-200 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50"
+      onclick="return confirm('Delete this article permanently?')"
+    >
+      Delete article
+    </button>
+  </form>
+</AdminLayout>
