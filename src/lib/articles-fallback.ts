@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import type { Article } from '../types/article';
+import { resolveHeroImage } from './hero-image';
 
 function mapMarkdownToArticle(
   id: string,
@@ -30,7 +31,7 @@ function mapMarkdownToArticle(
     tags: data.tags,
     draft: data.draft,
     featured: data.featured,
-    hero_image: data.heroImage ?? null,
+    hero_image: resolveHeroImage(id, data.heroImage),
     pub_date: pubDate,
     updated_at: updatedAt,
     created_at: pubDate,

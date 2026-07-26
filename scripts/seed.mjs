@@ -81,6 +81,8 @@ for (const file of files) {
 
   if (includeHeroImage && meta.heroImage) {
     row.hero_image = meta.heroImage;
+  } else if (includeHeroImage) {
+    row.hero_image = `/images/blog/${slug}.png`;
   }
 
   const { error } = await supabase.from('articles').upsert(row, { onConflict: 'slug' });

@@ -17,6 +17,11 @@ import {
 } from './articles';
 import { createSupabaseServerClient } from './supabase/server';
 import { isSupabaseConfigured } from './supabase/config';
+import { resolveHeroImage } from './hero-image';
+
+function withHeroImage(article: Article): Article {
+  return { ...article, hero_image: resolveHeroImage(article.slug, article.hero_image) };
+}
 
 export async function getSupabase(Astro: {
   cookies: AstroCookies;
@@ -29,12 +34,18 @@ export async function getPublishedArticles(
   supabase: SupabaseClient | null,
   tag?: string | null,
 ): Promise<Article[]> {
-  if (supabase) return getSupabasePublishedArticles(supabase, tag);
+  if (supabase) {
+    const articles = await getSupabasePublishedArticles(supabase, tag);
+    return articles.map(withHeroImage);
+  }
   return getPublishedArticlesFromMarkdown(tag);
 }
 
 export async function getAllArticles(supabase: SupabaseClient | null): Promise<Article[]> {
-  if (supabase) return getAllSupabaseArticles(supabase);
+  if (supabase) {
+    const articles = await getAllSupabaseArticles(supabase);
+    return articles.map(withHeroImage);
+  }
   return getAllArticlesFromMarkdown();
 }
 
@@ -42,7 +53,10 @@ export async function getArticleBySlug(
   supabase: SupabaseClient | null,
   slug: string,
 ): Promise<Article | null> {
-  if (supabase) return getSupabaseArticleBySlug(supabase, slug);
+  if (supabase) {
+    const article = await getSupabaseArticleBySlug(supabase, slug);
+    return article ? withHeroImage(article) : null;
+  }
   return getArticleBySlugFromMarkdown(slug);
 }
 
