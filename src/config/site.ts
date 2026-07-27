@@ -23,6 +23,11 @@ export const ADSENSE = {
   },
 } as const;
 
+export const ANALYTICS = {
+  enabled: true,
+  measurementId: 'G-S53HXFL89Y',
+} as const;
+
 export function isAdSlotConfigured(slotId: string): boolean {
   return Boolean(slotId) && !/^0+$/.test(slotId);
 }
