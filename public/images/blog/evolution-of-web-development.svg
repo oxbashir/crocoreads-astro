@@ -1,0 +1,91 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">The Evolution of Web Development</title>
+  <desc id="desc">A timeline-style illustration showing the evolution of web development from static HTML to modern edge-delivered applications.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#E0F2FE"/>
+    </linearGradient>
+    <linearGradient id="line" x1="112" y1="0" x2="1088" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#94A3B8"/>
+      <stop offset="0.5" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#0F766E"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1200" height="630" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="20" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" rx="32" fill="url(#bg)"/>
+  <circle cx="1058" cy="84" r="110" fill="#DBEAFE"/>
+  <circle cx="124" cy="546" r="96" fill="#CCFBF1"/>
+
+  <g filter="url(#shadow)">
+    <rect x="52" y="52" width="1096" height="526" rx="28" fill="#FFFFFF"/>
+  </g>
+
+  <text x="90" y="128" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700">
+    The Evolution of Web Development
+  </text>
+  <text x="90" y="168" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="22">
+    From static pages to modern edge-delivered web apps
+  </text>
+
+  <line x1="112" y1="350" x2="1088" y2="350" stroke="url(#line)" stroke-width="12" stroke-linecap="round"/>
+
+  <g>
+    <circle cx="180" cy="350" r="30" fill="#2563EB"/>
+    <rect x="140" y="238" width="80" height="62" rx="10" fill="#E0E7FF" stroke="#2563EB" stroke-width="3"/>
+    <rect x="156" y="256" width="48" height="30" rx="4" fill="#FFFFFF"/>
+    <path d="M165 271H195" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+    <path d="M165 279H188" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+    <text x="122" y="410" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Static HTML</text>
+    <text x="118" y="438" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="18">Simple linked pages</text>
+  </g>
+
+  <g>
+    <circle cx="390" cy="350" r="30" fill="#3B82F6"/>
+    <rect x="340" y="236" width="100" height="68" rx="12" fill="#DBEAFE" stroke="#2563EB" stroke-width="3"/>
+    <path d="M363 258L350 270L363 282" stroke="#2563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M417 258L430 270L417 282" stroke="#2563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M381 287H399" stroke="#0F766E" stroke-width="4" stroke-linecap="round"/>
+    <text x="338" y="410" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">CSS + JS</text>
+    <text x="314" y="438" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="18">Interactive browser UX</text>
+  </g>
+
+  <g>
+    <circle cx="600" cy="350" r="30" fill="#0EA5E9"/>
+    <rect x="556" y="228" width="88" height="34" rx="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="3"/>
+    <rect x="556" y="270" width="88" height="34" rx="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="3"/>
+    <rect x="556" y="312" width="88" height="34" rx="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="3"/>
+    <circle cx="574" cy="245" r="5" fill="#0284C7"/>
+    <circle cx="574" cy="287" r="5" fill="#0284C7"/>
+    <circle cx="574" cy="329" r="5" fill="#0284C7"/>
+    <text x="535" y="410" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">CMS + Servers</text>
+    <text x="506" y="438" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="18">Templates and databases</text>
+  </g>
+
+  <g>
+    <circle cx="810" cy="350" r="30" fill="#14B8A6"/>
+    <rect x="750" y="230" width="120" height="74" rx="14" fill="#CCFBF1" stroke="#0F766E" stroke-width="3"/>
+    <rect x="764" y="246" width="40" height="18" rx="6" fill="#FFFFFF"/>
+    <rect x="816" y="246" width="40" height="18" rx="6" fill="#FFFFFF"/>
+    <rect x="764" y="274" width="92" height="16" rx="6" fill="#FFFFFF"/>
+    <text x="742" y="410" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Frameworks</text>
+    <text x="725" y="438" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="18">Components and state</text>
+  </g>
+
+  <g>
+    <circle cx="1020" cy="350" r="30" fill="#0F766E"/>
+    <path d="M980 292C980 270 997 252 1020 252C1043 252 1060 270 1060 292C1060 316 1041 334 1020 334C1000 334 980 316 980 292Z" fill="#D1FAE5" stroke="#0F766E" stroke-width="3"/>
+    <path d="M1000 292H1040" stroke="#0F766E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M1020 272V312" stroke="#0F766E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M988 320L1052 320" stroke="#0F766E" stroke-width="4" stroke-linecap="round"/>
+    <text x="977" y="410" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Edge Web</text>
+    <text x="932" y="438" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="18">Fast, global, content-first</text>
+  </g>
+
+  <text x="90" y="528" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="20">
+    Simpler delivery, richer apps, and better performance have defined every major shift on the web.
+  </text>
+</svg>
